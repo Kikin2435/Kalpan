@@ -76,7 +76,7 @@ nav div {
   position: relative;
   width: 40px;
   height: 40px;
-  background: #1a73e8; /* Círculo azul */
+  background: #1a73e8;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -88,12 +88,12 @@ nav div {
   position: absolute;
   width: 24px;
   height: 24px;
-  background: #ffffff; /* Círculo blanco más pequeño */
+  background: #ffffff;
   border-radius: 50%;
 }
 
 .user-icon::after {
-  content: '👤'; /* Ícono de usuario */
+  content: '👤';
   position: relative;
   font-size: 18px;
   color: #1a73e8;
@@ -194,7 +194,7 @@ input:focus {
   border: 1px solid #bdbdbd;
   background: #ffffff;
   padding: 10px;
-  flex: 1; /* Asegura que los contenedores de entrada tengan el mismo ancho */
+  flex: 1;
 }
 
 #S-1 {
@@ -225,7 +225,7 @@ input:focus {
 .buttons-container {
   display: flex;
   align-items: flex-end;
-  margin-left: 10px; /* Espacio entre los campos de entrada y los botones */
+  margin-left: 10px;
   height: 80%;
 }
 
@@ -245,13 +245,71 @@ input:focus {
 .modal-content {
   position: relative;
   background-color: #ffffff;
-  padding: 2.5rem;
-  border-radius: 12px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 700px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 900px;
+  max-height: 80vh;
+  overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content.modal-animated {
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-inner {
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.modal-image {
+  flex: 1;
+  max-width: 400px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+.modal-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.modal-details .MuiTypography-body1 {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.modal-details .MuiTypography-h4 {
+  font-size: 24px;
+  line-height: 1.3;
+  text-align: left;
 }
 
 .close-btn {

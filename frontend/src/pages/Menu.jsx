@@ -38,7 +38,7 @@ function Menu() {
       servicios: "Agua, luz, internet",
       estacionamiento: "No disponible",
       reglas: "No fiestas, no mascotas",
-      image: imagen1
+      image: imagen1,
     },
     {
       id: 2,
@@ -54,7 +54,7 @@ function Menu() {
       servicios: "Agua, luz",
       estacionamiento: "1 auto",
       reglas: "No se permite fumar",
-      image: imagen2
+      image: imagen2,
     },
     {
       id: 3,
@@ -70,7 +70,7 @@ function Menu() {
       servicios: "Agua, luz, gas, internet",
       estacionamiento: "1 lugar techado",
       reglas: "No fiestas",
-      image: imagen3
+      image: imagen3,
     },
     {
       id: 4,
@@ -86,7 +86,7 @@ function Menu() {
       servicios: "Todo incluido",
       estacionamiento: "2 autos",
       reglas: "No mascotas",
-      image: imagen4
+      image: imagen4,
     },
     {
       id: 5,
@@ -102,7 +102,7 @@ function Menu() {
       servicios: "Agua, luz, internet",
       estacionamiento: "No disponible",
       reglas: "No fumar, no visitas",
-      image: imagen5
+      image: imagen5,
     },
     {
       id: 6,
@@ -118,7 +118,7 @@ function Menu() {
       servicios: "Agua, luz, internet, gas",
       estacionamiento: "1 lugar",
       reglas: "No fiestas, no ruido después de las 10",
-      image: imagen6
+      image: imagen6,
     },
     {
       id: 7,
@@ -134,7 +134,7 @@ function Menu() {
       servicios: "Agua, luz",
       estacionamiento: "No",
       reglas: "No mascotas",
-      image: imagen7
+      image: imagen7,
     },
     {
       id: 8,
@@ -150,11 +150,10 @@ function Menu() {
       servicios: "Todos incluidos",
       estacionamiento: "Calle",
       reglas: "No fiestas, respeto mutuo",
-      image: imagen8
+      image: imagen8,
     }
   ];
 
-  // Función para manejar la búsqueda
   const handleSearch = () => {
     const filtered = alojamientos.filter(item => {
       return (
@@ -166,7 +165,6 @@ function Menu() {
     setAlojamientosFiltrados(filtered);
   };
 
-  // Función para limpiar los campos y restablecer los alojamientos
   const handleClear = () => {
     setDestino('');
     setPrecioMinimo('');
@@ -174,10 +172,7 @@ function Menu() {
     setAlojamientosFiltrados(null);
   };
 
-  // Determinar si los botones deben ser visibles
   const isButtonVisible = destino || precioMinimo || precioMaximo;
-
-  // Mostrar alojamientosFiltrados si está definido, de lo contrario, mostrar todos los alojamientos
   const displayAlojamientos = alojamientosFiltrados || alojamientos;
 
   return (
@@ -188,10 +183,7 @@ function Menu() {
         <div id="Sesion">
           <div className="user-icon"></div>
           <ul className="dropdown">
-            <li><a href="Anunciar_Alojamiento.html">Pon tu casa en Kalpan</a></li>
-            <li><a href="Inicio.html">Nosotros</a></li>
-            <li><a href="#">Configuración</a></li>
-            <li><a href="#">Centro de ayuda</a></li>
+            <li><a href="publicar-alojamiento">Pon tu casa en Kalpan</a></li>
             <li><a href="inicio-sesion"><b>Cerrar Sesión</b></a></li>
           </ul>
         </div>
@@ -331,56 +323,75 @@ function Menu() {
 
         {alojamientoSeleccionado && (
           <div className="modal-overlay" onClick={() => setAlojamientoSeleccionado(null)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content modal-animated" onClick={(e) => e.stopPropagation()}>
               <button
                 className="close-btn"
                 onClick={() => setAlojamientoSeleccionado(null)}
               >
                 ✖
               </button>
-              <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
-                {alojamientoSeleccionado.title}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Descripción:</strong> {alojamientoSeleccionado.desc}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Precio:</strong> ${alojamientoSeleccionado.price}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Ubicación:</strong> {alojamientoSeleccionado.ubicacion}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Tipo de propiedad:</strong> {alojamientoSeleccionado.tipo}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Habitaciones:</strong> {alojamientoSeleccionado.habitaciones}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Baños:</strong> {alojamientoSeleccionado.banos}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Superficie:</strong> {alojamientoSeleccionado.superficie} m²
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Amenidades:</strong> {alojamientoSeleccionado.amenidades}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Servicios:</strong> {alojamientoSeleccionado.servicios}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                <strong>Estacionamiento:</strong> {alojamientoSeleccionado.estacionamiento}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 3 }}>
-                <strong>Reglas de la propiedad:</strong> {alojamientoSeleccionado.reglas}
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: '#1a73e8', '&:hover': { backgroundColor: '#1557b0' } }}
-                onClick={() => alert('Funcionalidad de reservar aún no implementada')}
-              >
-                Reservar Ahora
-              </Button>
+              <div className="modal-inner">
+                <div className="modal-image">
+                  <img
+                    src={alojamientoSeleccionado.image}
+                    alt={alojamientoSeleccionado.title}
+                    className="modal-image"
+                  />
+                </div>
+                <div className="modal-details">
+                  <Typography variant="h4" sx={{ mb: 2, fontWeight: 600, color: '#333', textAlign: 'center' }}>
+                    {alojamientoSeleccionado.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Descripción:</strong> {alojamientoSeleccionado.desc}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Precio:</strong> ${alojamientoSeleccionado.price}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Ubicación:</strong> {alojamientoSeleccionado.ubicacion}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Tipo de propiedad:</strong> {alojamientoSeleccionado.tipo}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Habitaciones:</strong> {alojamientoSeleccionado.habitaciones}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Baños:</strong> {alojamientoSeleccionado.banos}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Superficie:</strong> {alojamientoSeleccionado.superficie} m²
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Amenidades:</strong> {alojamientoSeleccionado.amenidades}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
+                    <strong>Servicios:</strong> {alojamientoSeleccionado.servicios}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 3, color: '#555' }}>
+                    <strong>Estacionamiento:</strong> {alojamientoSeleccionado.estacionamiento}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 3, color: '#555' }}>
+                    <strong>Reglas de la propiedad:</strong> {alojamientoSeleccionado.reglas}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: '#1a73e8',
+                      '&:hover': { backgroundColor: '#1557b0' },
+                      borderRadius: '25px',
+                      textTransform: 'none',
+                      fontSize: '16px',
+                      padding: '10px 20px',
+                      width: '100%',
+                    }}
+                    onClick={() => alert('Funcionalidad de reservar aún no implementada')}
+                  >
+                    Reservar Ahora
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         )}
