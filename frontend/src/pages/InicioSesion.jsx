@@ -8,6 +8,8 @@ function InicioSesion() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

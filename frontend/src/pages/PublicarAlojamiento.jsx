@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import styles from './PublicarAlojamiento.module.css';
 
 function PublicarAlojamiento() {
-  const [titulo, setTitulo] = useState('');
+  const [titulo_anuncio, setTitulo_anuncio] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
   const [ubicacion, setUbicacion] = useState('');
   const [tipo, setTipo] = useState('');
-  const [habitaciones, setHabitaciones] = useState('');
-  const [banios, setBanios] = useState('');
+  const [no_habitacion, setNo_Habitacion] = useState('');
+  const [no_banios, setNo_Banios] = useState('');
   const [superficie, setSuperficie] = useState('');
   const [amenidades, setAmenidades] = useState([]);
   const [servicios, setServicios] = useState([]);
   const [estacionamiento, setEstacionamiento] = useState('');
   const [reglas, setReglas] = useState('');
-  const [media, setMedia] = useState([]);
+  const [imagen, setImagen] = useState([]);
   const navigate = useNavigate();
 
   const handleAmenidadesChange = (e) => {
@@ -37,29 +37,51 @@ function PublicarAlojamiento() {
   };
 
   const handleMediaChange = (e) => {
-    setMedia([...e.target.files]);
+    setImagen([...e.target.files]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const id_propietario = 1; 
+  
     const propiedad = {
-      titulo,
+      titulo_anuncio,
       descripcion,
       precio,
       ubicacion,
       tipo,
-      habitaciones,
-      banios,
+      no_habitacion,
+      no_banios,
       superficie,
-      amenidades,
-      servicios,
+      amenidades: amenidades.join(', '),
+      servicios: servicios.join(', '),
       estacionamiento,
       reglas,
-      media: media.map((file) => file.name),
+      id_propietario, 
     };
-    localStorage.setItem('propiedad', JSON.stringify(propiedad));
-    navigate('/menu');
+  
+    console.log('Enviando propiedad:', propiedad);
+  
+    try {
+      const response = await fetch('http://localhost:4000/crearAlojamiento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(propiedad),
+      });
+  
+      if (!response.ok) throw new Error('Error al guardar en el servidor');
+  
+      const data = await response.json();
+      console.log('Propiedad publicada correctamente:', data);
+      navigate('/menu');
+    } catch (error) {
+      console.error('Error en la base de datos:', error);
+    }
   };
+  
 
   const handleRegresar = () => {
     navigate('/menu');
@@ -79,8 +101,10 @@ function PublicarAlojamiento() {
               <input
                 type="text"
                 id="titulo"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
+                minLength={1}
+                maxLength={200}
+                value={titulo_anuncio}
+                onChange={(e) => setTitulo_anuncio(e.target.value)}
                 placeholder="Título del anuncio"
                 required
               />
@@ -92,6 +116,8 @@ function PublicarAlojamiento() {
             <div className={styles['input-container']}>
               <textarea
                 id="descripcion"
+                minLength={10}
+                maxLength={500}
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 placeholder="Describe la propiedad"
@@ -100,11 +126,13 @@ function PublicarAlojamiento() {
           </div>
 
           <div>
-            <label htmlFor="precio">Precio de venta</label>
+            <label htmlFor="precio">Precio de renta (mensual) </label>
             <div className={styles['input-container']}>
               <input
                 type="number"
                 id="precio"
+                min={1}
+                max={10000}
                 value={precio}
                 onChange={(e) => setPrecio(e.target.value)}
                 placeholder="$"
@@ -120,6 +148,8 @@ function PublicarAlojamiento() {
                 type="text"
                 id="ubicacion"
                 value={ubicacion}
+                minLength={20}
+                maxLength={200}
                 onChange={(e) => setUbicacion(e.target.value)}
                 placeholder="Ejemplo: Calle 123, Colonia, Ciudad, Estado, País"
                 required
@@ -153,9 +183,10 @@ function PublicarAlojamiento() {
                 <input
                   type="number"
                   id="habitaciones"
-                  value={habitaciones}
-                  onChange={(e) => setHabitaciones(e.target.value)}
+                  value={no_habitacion}
+                  onChange={(e) => setNo_Habitacion(e.target.value)}
                   min="1"
+                  max={10}
                   required
                 />
               </div>
@@ -166,9 +197,10 @@ function PublicarAlojamiento() {
                 <input
                   type="number"
                   id="banios"
-                  value={banios}
-                  onChange={(e) => setBanios(e.target.value)}
+                  value={no_banios}
+                  onChange={(e) => setNo_Banios(e.target.value)}
                   min="1"
+                  max={10}
                   required
                 />
               </div>
@@ -181,7 +213,8 @@ function PublicarAlojamiento() {
                   id="superficie"
                   value={superficie}
                   onChange={(e) => setSuperficie(e.target.value)}
-                  min="1"
+                  min="4"
+                  max={1000}
                   required
                 />
               </div>
@@ -323,13 +356,14 @@ function PublicarAlojamiento() {
               <textarea
                 id="reglas"
                 value={reglas}
+                maxLength={500}
                 onChange={(e) => setReglas(e.target.value)}
                 placeholder="Reglas de la propiedad"
               />
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="media">Imágenes y videos</label>
             <div className={styles['input-container']}>
               <input
@@ -342,11 +376,11 @@ function PublicarAlojamiento() {
               />
             </div>
             <div className={styles['file-names']}>
-              {media.map((file, index) => (
+              {imagen.map((file, index) => (
                 <p key={index}>{file.name}</p>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <div className={styles['button-container']}>
             <button type="submit" className={styles['btn-registrarse']}>
