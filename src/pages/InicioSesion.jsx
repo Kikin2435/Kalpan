@@ -10,15 +10,31 @@ function InicioSesion() {
 
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
+    const usuario = {
+      email,
+      password
+    };
 
-    if (usuarioGuardado && usuarioGuardado.email === email && usuarioGuardado.password === password) {
-      navigate('/menu');
-    } else {
-      alert('Correo o contraseña incorrectos');
+    try {
+      const response = await fetch('http://localhost:4000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuario)
+      });
+
+      if (response.ok) {
+        navigate('/menu');
+      } else {
+        throw new Error('Error al iniciar sesión');
+      }
+    } catch (error) {
+      console.error('Error en la base de datos:', error);
+      alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
     }
   };
 

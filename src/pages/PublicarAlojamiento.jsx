@@ -93,7 +93,7 @@ function PublicarAlojamiento() {
         <div className={styles.Logo}></div>
       </nav>
       <div className={styles.container}>
-        <h2>Publicar Propiedad</h2>
+        <h2>Publicar Alojamiento</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="titulo">Título del anuncio</label>

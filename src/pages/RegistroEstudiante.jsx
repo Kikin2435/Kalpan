@@ -13,24 +13,39 @@ function RegistroEstudiante() {
   const [telefono, setTelefono] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verificar si las contraseñas coinciden
-    if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden 🔐');
-      return;
+    const estudiante = {
+      nombre,
+      apellido,
+      usuario,
+      email,
+      password,
+      telefono
+    };
+
+    try {
+      const response = await fetch('http://localhost:4000/crearEstudiante', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(estudiante)
+      });
+
+      if (response.ok) {
+        navigate('/inicio-sesion');
+      } else {
+        throw new Error('Error al registrar el estudiante');
+      }
+    } catch (error) {
+      console.error('Error al guardar el estudiante:', error);
+      alert('Error al guardar el estudiante. Por favor, inténtalo de nuevo.');
     }
-
-    // Guardamos los datos en localStorage, incluyendo el usuario
-    localStorage.setItem('usuario', JSON.stringify({ nombre, apellido, usuario, email, password, telefono }));
-
-    // Redirigimos al usuario a la página de inicio de sesión
-    navigate('/inicio-sesion');
   };
 
   const handleRegresar = () => {
-    // Redirigir al usuario a la página de InicioSesion
     navigate('/inicio-sesion');
   };
 
@@ -48,6 +63,7 @@ function RegistroEstudiante() {
                 value={nombre}
                 minLength={1}
                 maxLength={30}
+                required
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ingresa tu nombre"
               />
@@ -62,6 +78,7 @@ function RegistroEstudiante() {
                 value={apellido}
                 minLength={1}
                 maxLength={30}
+                required
                 onChange={(e) => setApellido(e.target.value)}
                 placeholder="Ingresa tu apellido"
               />
@@ -75,6 +92,7 @@ function RegistroEstudiante() {
                 type="text"
                 value={usuario}
                 minLength={3}
+                required
                 maxLength={10}
                 onChange={(e) => setUsuario(e.target.value)}
                 placeholder="Ingresa tu nombre de usuario"
@@ -88,6 +106,7 @@ function RegistroEstudiante() {
               <input
                 type="email"
                 value={email}
+                required
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Ingresa tu correo"
                 minLength={8}
@@ -103,6 +122,7 @@ function RegistroEstudiante() {
                 type="password"
                 value={password}
                 minLength={8}
+                required
                 maxLength={16}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Ingresa tu contraseña"
@@ -118,6 +138,7 @@ function RegistroEstudiante() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 minLength={8}
+                required
                 maxLength={16}
                 placeholder="Confirma tu contraseña"
               />
@@ -131,6 +152,7 @@ function RegistroEstudiante() {
                 type="tel"
                 value={telefono}
                 minLength={10}
+                required
                 maxLength={10}
                 onChange={(e) => setTelefono(e.target.value)}
                 placeholder="Ingresa tu teléfono"
