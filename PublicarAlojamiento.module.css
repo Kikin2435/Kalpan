@@ -1,0 +1,183 @@
+.centrar-pagina {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 80px;
+  }
+  
+  .nav {
+    background: #E0CDB6;
+    display: flex;
+    height: 80px;
+    border-bottom: 3px solid black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .Logo {
+    width: 50%;
+    background-image: url("Img/Logo.png");
+    background-repeat: no-repeat;
+    background-size: auto 80%;
+    background-position: left center;
+    height: 100%;
+  }
+  
+  .container {
+    position: relative;
+    background-color: #ffffff;
+    padding: 3rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: left;
+  }
+  
+  .container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
+  
+  .container label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .input-container input,
+  .input-container textarea,
+  .input-container select {
+    border: none;
+    background: transparent;
+    padding: 0.75rem;
+    font-size: 1rem;
+    width: 100%;
+    line-height: 1.5;
+    color: #333; /* Color oscuro para el texto */
+  }
+  
+  .input-container input::placeholder,
+  .input-container textarea::placeholder {
+    color: #888; /* Color claro para placeholders */
+  }
+  
+  .input-container input:focus,
+  .input-container textarea:focus,
+  .input-container select:focus {
+    outline: none;
+  }
+  
+  .input-container textarea {
+    height: 120px;
+    resize: none;
+  }
+  
+  .input-container select {
+    height: 40px;
+  }
+  
+  .numeros {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  
+  .numeros div {
+    width: 33.33%; /* Ajustado para más espacio */
+    min-width: 150px; /* Ancho mínimo para evitar compresión */
+  }
+  
+  .numeros .input-container {
+    padding: 0.75rem 1.5rem; /* Más padding para los campos numéricos */
+  }
+  
+  .numeros .input-container input[type="number"] {
+    font-size: 1.1rem; /* Tamaño de fuente más grande */
+    height: 40px; /* Altura consistente con otros campos */
+    width: 100%;
+  }
+  
+  
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .fieldset {
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .fieldset legend {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    padding: 0 0.5rem;
+  }
+  
+  .file-names {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+  }
+  
+  .file-names p {
+    margin: 0.5rem 0;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Increased spacing between buttons */
+    margin-top: 2rem;
+  }
+  
+  .btn-registrarse, .btn-regresar {
+    background: #1a73e8;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem; /* Reduced padding to make buttons smaller */
+    border-radius: 8px;
+    font-size: 1rem; /* Slightly smaller font size */
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-registrarse:hover, .btn-regresar:hover {
+    background: #1557b0;
+  }
