@@ -101,6 +101,8 @@ function PublicarAlojamiento() {
               <input
                 type="text"
                 id="titulo"
+                minLength={1}
+                maxLength={200}
                 value={titulo_anuncio}
                 onChange={(e) => setTitulo_anuncio(e.target.value)}
                 placeholder="Título del anuncio"
@@ -114,6 +116,8 @@ function PublicarAlojamiento() {
             <div className={styles['input-container']}>
               <textarea
                 id="descripcion"
+                minLength={10}
+                maxLength={500}
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 placeholder="Describe la propiedad"
@@ -122,11 +126,13 @@ function PublicarAlojamiento() {
           </div>
 
           <div>
-            <label htmlFor="precio">Precio de venta</label>
+            <label htmlFor="precio">Precio de renta (mensual) </label>
             <div className={styles['input-container']}>
               <input
                 type="number"
                 id="precio"
+                min={1}
+                max={10000}
                 value={precio}
                 onChange={(e) => setPrecio(e.target.value)}
                 placeholder="$"
@@ -142,6 +148,8 @@ function PublicarAlojamiento() {
                 type="text"
                 id="ubicacion"
                 value={ubicacion}
+                minLength={20}
+                maxLength={200}
                 onChange={(e) => setUbicacion(e.target.value)}
                 placeholder="Ejemplo: Calle 123, Colonia, Ciudad, Estado, País"
                 required
@@ -178,6 +186,7 @@ function PublicarAlojamiento() {
                   value={no_habitacion}
                   onChange={(e) => setNo_Habitacion(e.target.value)}
                   min="1"
+                  max={10}
                   required
                 />
               </div>
@@ -191,6 +200,7 @@ function PublicarAlojamiento() {
                   value={no_banios}
                   onChange={(e) => setNo_Banios(e.target.value)}
                   min="1"
+                  max={10}
                   required
                 />
               </div>
@@ -203,7 +213,8 @@ function PublicarAlojamiento() {
                   id="superficie"
                   value={superficie}
                   onChange={(e) => setSuperficie(e.target.value)}
-                  min="1"
+                  min="4"
+                  max={1000}
                   required
                 />
               </div>
@@ -345,13 +356,14 @@ function PublicarAlojamiento() {
               <textarea
                 id="reglas"
                 value={reglas}
+                maxLength={500}
                 onChange={(e) => setReglas(e.target.value)}
                 placeholder="Reglas de la propiedad"
               />
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="media">Imágenes y videos</label>
             <div className={styles['input-container']}>
               <input
@@ -368,7 +380,7 @@ function PublicarAlojamiento() {
                 <p key={index}>{file.name}</p>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <div className={styles['button-container']}>
             <button type="submit" className={styles['btn-registrarse']}>

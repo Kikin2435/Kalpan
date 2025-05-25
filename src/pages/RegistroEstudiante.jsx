@@ -46,6 +46,8 @@ function RegistroEstudiante() {
               <input
                 type="text"
                 value={nombre}
+                minLength={1}
+                maxLength={30}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ingresa tu nombre"
               />
@@ -58,6 +60,8 @@ function RegistroEstudiante() {
               <input
                 type="text"
                 value={apellido}
+                minLength={1}
+                maxLength={30}
                 onChange={(e) => setApellido(e.target.value)}
                 placeholder="Ingresa tu apellido"
               />
@@ -70,6 +74,8 @@ function RegistroEstudiante() {
               <input
                 type="text"
                 value={usuario}
+                minLength={3}
+                maxLength={10}
                 onChange={(e) => setUsuario(e.target.value)}
                 placeholder="Ingresa tu nombre de usuario"
               />
@@ -84,6 +90,8 @@ function RegistroEstudiante() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Ingresa tu correo"
+                minLength={8}
+                maxLength={50}
               />
             </div>
           </div>
@@ -94,6 +102,8 @@ function RegistroEstudiante() {
               <input
                 type="password"
                 value={password}
+                minLength={8}
+                maxLength={16}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Ingresa tu contraseña"
               />
@@ -107,6 +117,8 @@ function RegistroEstudiante() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                minLength={8}
+                maxLength={16}
                 placeholder="Confirma tu contraseña"
               />
             </div>
@@ -118,6 +130,8 @@ function RegistroEstudiante() {
               <input
                 type="tel"
                 value={telefono}
+                minLength={10}
+                maxLength={10}
                 onChange={(e) => setTelefono(e.target.value)}
                 placeholder="Ingresa tu teléfono"
               />
