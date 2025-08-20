@@ -1,10 +1,9 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import loginrouter from './routes/login.Routes.js'
 import estudianterouter from './routes/estudiante.Routes.js';
 import alojamientorouter from './routes/alojamiento.Routes.js';
-import { initDB } from './models/index.js';
+import login from './routes/login.Routes.js';
 
 const app = express();
 
@@ -18,6 +17,6 @@ app.use(express.json());
 app.use('/uploads', express.static(path.resolve('src/uploads')));
 app.use(estudianterouter);
 app.use(alojamientorouter);
-app.use(loginrouter);
+app.use(login);
 
 export default app;

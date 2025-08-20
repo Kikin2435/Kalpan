@@ -42,15 +42,21 @@ export const Alojamiento = sequelize.define('alojamiento', {
     servicios: {
         type: DataTypes.STRING
     },
-    imagen: {
-        type: DataTypes.STRING,
-        // allowNull: false
-    },
     estacionamiento: {
         type: DataTypes.STRING
     },
     reglas: {
         type: DataTypes.TEXT
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: true
+    }, 
+    reservaciones: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: true
     },
     id_propietario: {
         type: DataTypes.INTEGER,

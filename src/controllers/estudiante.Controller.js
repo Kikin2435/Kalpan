@@ -1,5 +1,7 @@
 import { Estudiante } from "../models/Estudiante.js";
 
+
+
 export const createEstudiante = async (req, res) => {
     try {
         const {nombre, apellido, usuario, email, password, telefono} = req.body;
