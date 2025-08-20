@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Menu.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,6 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 import imagen1 from './Img/c-1.png';
 import imagen2 from './Img/c-2.png';
@@ -22,7 +25,8 @@ function Menu() {
   const [precioMaximo, setPrecioMaximo] = useState('');
   const [alojamientoSeleccionado, setAlojamientoSeleccionado] = useState(null);
   const [alojamientosFiltrados, setAlojamientosFiltrados] = useState(null);
-  const [alojamientoImagen,setAlojamientoImagen] = useState([]);
+  const [alojamientoImagen, setAlojamientoImagen] = useState([]);
+  const navigate = useNavigate();
 
   const [alojamientos, setAlojamientos] = useState([]);
 
@@ -31,7 +35,7 @@ function Menu() {
       .then(res => res.json())
       .then(data => {
         const imagenes = [imagen1, imagen2, imagen3, imagen4, imagen5, imagen6, imagen7, imagen8];
-  
+
         const alojamientosConImagen = data.map((item, index) => ({
           id: item.id_alojamiento || index,
           title: item.titulo_anuncio || 'Propiedad sin título',
@@ -49,145 +53,13 @@ function Menu() {
           image: imagenes[index % imagenes.length] // por ahora, imagen local
           // Si usas imágenes reales desde BD, usa item.imagen
         }));
-  
+
         setAlojamientos(alojamientosConImagen);
       })
       .catch(err => {
         console.error('❌ Error al obtener alojamientos del backend:', err);
       });
   }, []);
-  
-
-  // const alojamientos = [
-  //   {
-  //     id: 1,
-  //     title: "Habitación de Juan Jonhson",
-  //     desc: "Muy económico",
-  //     price: 300,
-  //     ubicacion: "Centro, Ciudad de México",
-  //     tipo: "Habitación individual",
-  //     habitaciones: 1,
-  //     banos: 1,
-  //     superficie: 20,
-  //     amenidades: "Cama, escritorio, clóset",
-  //     servicios: "Agua, luz, internet",
-  //     estacionamiento: "No disponible",
-  //     reglas: "No fiestas, no mascotas",
-  //     image: imagen1,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Cuarto en La Calera",
-  //     desc: "Decoración rústica",
-  //     price: 500,
-  //     ubicacion: "La Calera, Puebla",
-  //     tipo: "Habitación compartida",
-  //     habitaciones: 2,
-  //     banos: 1,
-  //     superficie: 35,
-  //     amenidades: "Camas, cocina compartida",
-  //     servicios: "Agua, luz",
-  //     estacionamiento: "1 auto",
-  //     reglas: "No se permite fumar",
-  //     image: imagen2,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Estudio moderno en Monterrey",
-  //     desc: "Ideal para estudiantes",
-  //     price: 750,
-  //     ubicacion: "San Pedro, Monterrey",
-  //     tipo: "Estudio",
-  //     habitaciones: 1,
-  //     banos: 1,
-  //     superficie: 28,
-  //     amenidades: "Cama, escritorio, cocina equipada",
-  //     servicios: "Agua, luz, gas, internet",
-  //     estacionamiento: "1 lugar techado",
-  //     reglas: "No fiestas",
-  //     image: imagen3,
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Departamento completo",
-  //     desc: "Con vista al mar",
-  //     price: 1200,
-  //     ubicacion: "Zona Hotelera, Cancún",
-  //     tipo: "Departamento",
-  //     habitaciones: 2,
-  //     banos: 2,
-  //     superficie: 70,
-  //     amenidades: "Sala, comedor, cocina equipada",
-  //     servicios: "Todo incluido",
-  //     estacionamiento: "2 autos",
-  //     reglas: "No mascotas",
-  //     image: imagen4,
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "Habitación en Guadalajara",
-  //     desc: "A pasos del centro histórico",
-  //     price: 450,
-  //     ubicacion: "Centro, Guadalajara",
-  //     tipo: "Habitación individual",
-  //     habitaciones: 1,
-  //     banos: 1,
-  //     superficie: 18,
-  //     amenidades: "Cama individual, escritorio",
-  //     servicios: "Agua, luz, internet",
-  //     estacionamiento: "No disponible",
-  //     reglas: "No fumar, no visitas",
-  //     image: imagen5,
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "Loft artístico",
-  //     desc: "Ambiente bohemio",
-  //     price: 980,
-  //     ubicacion: "Roma Norte, CDMX",
-  //     tipo: "Loft",
-  //     habitaciones: 1,
-  //     banos: 1,
-  //     superficie: 40,
-  //     amenidades: "Estudio, libreros, cocina",
-  //     servicios: "Agua, luz, internet, gas",
-  //     estacionamiento: "1 lugar",
-  //     reglas: "No fiestas, no ruido después de las 10",
-  //     image: imagen6,
-  //   },
-  //   {
-  //     id: 7,
-  //     title: "Mini departamento",
-  //     desc: "Compacto pero funcional",
-  //     price: 600,
-  //     ubicacion: "Col. Doctores, CDMX",
-  //     tipo: "Departamento",
-  //     habitaciones: 1,
-  //     banos: 1,
-  //     superficie: 25,
-  //     amenidades: "Cama, cocina, baño privado",
-  //     servicios: "Agua, luz",
-  //     estacionamiento: "No",
-  //     reglas: "No mascotas",
-  //     image: imagen7,
-  //   },
-  //   {
-  //     id: 8,
-  //     title: "Casa compartida",
-  //     desc: "Ambiente amigable",
-  //     price: 550,
-  //     ubicacion: "Zapopan, Jalisco",
-  //     tipo: "Casa compartida",
-  //     habitaciones: 3,
-  //     banos: 2,
-  //     superficie: 100,
-  //     amenidades: "Sala, cocina, patio",
-  //     servicios: "Todos incluidos",
-  //     estacionamiento: "Calle",
-  //     reglas: "No fiestas, respeto mutuo",
-  //     image: imagen8,
-  //   }
-  // ];
 
   const handleSearch = () => {
     const filtered = alojamientos.filter(item => {
@@ -206,6 +78,37 @@ function Menu() {
     setPrecioMaximo('');
     setAlojamientosFiltrados(null);
   };
+
+  const handleEdit = () => {
+    navigate('/editar', { state: { alojamiento: alojamientoSeleccionado } });
+  }
+
+  const handleEliminar = async () => {
+    const id_seleccionado = alojamientoSeleccionado.id;
+    console.log(id_seleccionado);
+    try {
+      const response = await fetch('http://localhost:4000/delAlojamiento', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id_seleccionado })
+      });
+
+
+      if (!response.ok) throw new Error("Error al eliminar en el servidor");
+
+      const data = await response.json();
+      console.log('Alojamiento eliminado correctamente: ', data);
+
+      setAlojamientoSeleccionado(null);
+
+      setAlojamientos(prev => prev.filter(a => a.id !== id_seleccionado));
+      setAlojamientoSeleccionado(null);
+
+    } catch (error) {
+      console.error("Error en la base de datos: ", error.message);
+    }
+  };
+
 
   const isButtonVisible = destino || precioMinimo || precioMaximo;
   const displayAlojamientos = alojamientosFiltrados || alojamientos;
@@ -366,13 +269,36 @@ function Menu() {
                 ✖
               </button>
               <div className="modal-inner">
-                <div className="modal-image">
+                <div className="modal-image" style={{ position: 'relative' }}>
                   <img
                     src={alojamientoSeleccionado.image}
                     alt={alojamientoSeleccionado.title}
                     className="modal-image"
+                    style={{ width: '100%', borderRadius: '8px' }}
                   />
+                  <Button
+                    variant="contained"
+                    sx={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      minWidth: '30px',
+                      width: '30px',
+                      height: '30px',
+                      padding: 0,
+                      borderRadius: '50%',
+                      backgroundColor: '#ff0000',
+                      color: '#fff',
+                      '&:hover': { backgroundColor: '#cc0000' },
+                      fontSize: '16px',
+                    }}
+                    onClick={handleEliminar}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </Button>
                 </div>
+
+
                 <div className="modal-details">
                   <Typography variant="h4" sx={{ mb: 2, fontWeight: 600, color: '#333', textAlign: 'center' }}>
                     {alojamientoSeleccionado.title}
@@ -410,21 +336,40 @@ function Menu() {
                   <Typography variant="body1" sx={{ mb: 3, color: '#555' }}>
                     <strong>Reglas de la propiedad:</strong> {alojamientoSeleccionado.reglas}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      backgroundColor: '#1a73e8',
-                      '&:hover': { backgroundColor: '#1557b0' },
-                      borderRadius: '25px',
-                      textTransform: 'none',
-                      fontSize: '16px',
-                      padding: '10px 20px',
-                      width: '100%',
-                    }}
-                    onClick={() => alert('Funcionalidad de reservar aún no implementada')}
-                  >
-                    Reservar Ahora
-                  </Button>
+                  <div style={{ display: 'flex', gap: '16px', marginTop: '16px' }}>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: '#1a73e8',
+                        '&:hover': { backgroundColor: '#1557b0' },
+                        borderRadius: '25px',
+                        textTransform: 'none',
+                        fontSize: '16px',
+                        padding: '10px 20px',
+                        width: 'auto',
+                        flex: 1,
+                      }}
+                      onClick={() => alert('Funcionalidad de reservar aún no implementada')}
+                    >
+                      Reservar Ahora
+                    </Button>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: '#1a73e8',
+                        '&:hover': { backgroundColor: '#1557b0' },
+                        borderRadius: '25px',
+                        textTransform: 'none',
+                        fontSize: '16px',
+                        padding: '10px 20px',
+                        width: 'auto',
+                        flex: 1,
+                      }}
+                      onClick={handleEdit}
+                    >
+                      Editar Alojamiento
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

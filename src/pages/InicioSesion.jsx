@@ -27,13 +27,15 @@ function InicioSesion() {
         body: JSON.stringify(usuario)
       });
 
+      console.log(response);
+
       if (response.ok) {
         navigate('/menu');
       } else {
         throw new Error('Error al iniciar sesión');
       }
     } catch (error) {
-      console.error('Error en la base de datos:', error);
+      console.error('Error en la base de datos:', error.message);
       alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
     }
   };

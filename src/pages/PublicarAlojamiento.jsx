@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PublicarAlojamiento.module.css';
 
@@ -17,7 +17,7 @@ function PublicarAlojamiento() {
   const [reglas, setReglas] = useState('');
   const [imagen, setImagen] = useState([]);
   const navigate = useNavigate();
-
+  
   const handleAmenidadesChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {

@@ -3,6 +3,7 @@ import InicioSesion from './pages/InicioSesion';
 import RegistroEstudiante from './pages/RegistroEstudiante';
 import Menu from './pages/Menu';
 import PublicarAlojamiento from './pages/PublicarAlojamiento';
+import Editar from './pages/Editar';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/registro" element={<RegistroEstudiante />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/publicar-alojamiento" element={<PublicarAlojamiento />} />
+        <Route path="/editar" element={<Editar/>}/>
       </Routes>
     </Router>
   );
