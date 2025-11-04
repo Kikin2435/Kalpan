@@ -300,43 +300,66 @@ function Menu() {
 
 
                 <div className="modal-details">
-                  <Typography variant="h4" sx={{ mb: 2, fontWeight: 600, color: '#333', textAlign: 'center' }}>
+                  <Typography className="modal-title" variant="h4" sx={{ mb: 2, fontWeight: 700 }}>
                     {alojamientoSeleccionado.title}
                   </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Descripción:</strong> {alojamientoSeleccionado.desc}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Precio:</strong> ${alojamientoSeleccionado.price}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Ubicación:</strong> {alojamientoSeleccionado.ubicacion}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Tipo de propiedad:</strong> {alojamientoSeleccionado.tipo}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Habitaciones:</strong> {alojamientoSeleccionado.habitaciones}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Baños:</strong> {alojamientoSeleccionado.banos}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Superficie:</strong> {alojamientoSeleccionado.superficie} m²
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Amenidades:</strong> {alojamientoSeleccionado.amenidades}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1, color: '#555' }}>
-                    <strong>Servicios:</strong> {alojamientoSeleccionado.servicios}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 3, color: '#555' }}>
-                    <strong>Estacionamiento:</strong> {alojamientoSeleccionado.estacionamiento}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 3, color: '#555' }}>
-                    <strong>Reglas de la propiedad:</strong> {alojamientoSeleccionado.reglas}
-                  </Typography>
-                  <div style={{ display: 'flex', gap: '16px', marginTop: '16px' }}>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Descripción:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.desc || '—'}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Precio:</div>
+                    <div className="detail-value">${alojamientoSeleccionado.price}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Ubicación:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.ubicacion}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Tipo de propiedad:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.tipo || '—'}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Habitaciones:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.habitaciones}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Baños:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.banos}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Superficie:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.superficie} m²</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Amenidades:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.amenidades}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Servicios:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.servicios}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Estacionamiento:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.estacionamiento}</div>
+                  </div>
+
+                  <div className="detail-item">
+                    <div className="detail-label">Reglas de la propiedad:</div>
+                    <div className="detail-value">{alojamientoSeleccionado.reglas || '—'}</div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '16px', marginTop: '18px' }}>
                     <Button
                       variant="contained"
                       sx={{
