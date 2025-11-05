@@ -29,6 +29,7 @@ function Menu() {
   const navigate = useNavigate();
 
   const [alojamientos, setAlojamientos] = useState([]);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
 
   useEffect(() => {
     fetch('http://localhost:4000/alojamientos')
@@ -50,7 +51,10 @@ function Menu() {
           servicios: item.servicios || 'Sin servicios',
           estacionamiento: item.estacionamiento || 'Sin estacionamiento',
           reglas: item.reglas || '',
-          image: imagenes[index % imagenes.length] // por ahora, imagen local
+          // soporte para múltiples imágenes: si la API trae "imagenes" u "imagen" los usamos,
+          // si no, caemos en las imágenes locales de ejemplo
+          images: item.imagenes && item.imagenes.length > 0 ? item.imagenes : (item.imagen ? [item.imagen] : [imagenes[index % imagenes.length]]),
+          image: (item.imagenes && item.imagenes[0]) || item.imagen || imagenes[index % imagenes.length]
           // Si usas imágenes reales desde BD, usa item.imagen
         }));
 
@@ -234,7 +238,7 @@ function Menu() {
                     },
                   },
                 }}
-                onClick={() => setAlojamientoSeleccionado(item)}
+                onClick={() => { setAlojamientoSeleccionado(item); setModalImageIndex(0); }}
               >
                 <CardMedia
                   component="img"
@@ -270,12 +274,16 @@ function Menu() {
               </button>
               <div className="modal-inner">
                 <div className="modal-image" style={{ position: 'relative' }}>
+                  {/* Imagen principal de la galería (usa images[] si existe) */}
                   <img
-                    src={alojamientoSeleccionado.image}
+                    src={(alojamientoSeleccionado.images && alojamientoSeleccionado.images[modalImageIndex]) || alojamientoSeleccionado.image}
                     alt={alojamientoSeleccionado.title}
-                    className="modal-image"
+                    className="gallery-main"
                     style={{ width: '100%', borderRadius: '8px' }}
+                    onClick={(e) => e.stopPropagation()}
                   />
+
+                  {/* Botón eliminar */}
                   <Button
                     variant="contained"
                     sx={{
@@ -291,11 +299,55 @@ function Menu() {
                       color: '#fff',
                       '&:hover': { backgroundColor: '#cc0000' },
                       fontSize: '16px',
+                      zIndex: 5,
                     }}
-                    onClick={handleEliminar}
+                    onClick={(e) => { e.stopPropagation(); handleEliminar(); }}
                   >
                     <DeleteIcon fontSize="small" />
                   </Button>
+
+                  {/* Flechas de navegación */}
+                  {alojamientoSeleccionado.images && alojamientoSeleccionado.images.length > 1 && (
+                    <>
+                      <button
+                        className="gallery-arrow left"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const len = alojamientoSeleccionado.images.length;
+                          setModalImageIndex((idx) => (idx - 1 + len) % len);
+                        }}
+                        aria-label="Anterior"
+                      >
+                        ‹
+                      </button>
+                      <button
+                        className="gallery-arrow right"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const len = alojamientoSeleccionado.images.length;
+                          setModalImageIndex((idx) => (idx + 1) % len);
+                        }}
+                        aria-label="Siguiente"
+                      >
+                        ›
+                      </button>
+                    </>
+                  )}
+
+                  {/* Miniaturas */}
+                  {alojamientoSeleccionado.images && alojamientoSeleccionado.images.length > 1 && (
+                    <div className="gallery-thumbs" onClick={(e) => e.stopPropagation()}>
+                      {alojamientoSeleccionado.images.map((src, idx) => (
+                        <img
+                          key={idx}
+                          src={src}
+                          alt={`${alojamientoSeleccionado.title} - ${idx + 1}`}
+                          className={`thumb-img ${idx === modalImageIndex ? 'thumb-selected' : ''}`}
+                          onClick={() => setModalImageIndex(idx)}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
 
 

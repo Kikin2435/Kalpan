@@ -292,6 +292,59 @@ input:focus {
   border-radius: 12px;
 }
 
+/* Galería dentro del modal */
+.gallery-main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 6;
+  font-size: 22px;
+}
+
+.gallery-arrow.left { left: 8px; }
+.gallery-arrow.right { right: 8px; }
+
+.gallery-thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.gallery-thumbs .thumb-img {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.8;
+  border: 2px solid transparent;
+}
+
+.gallery-thumbs .thumb-selected {
+  border-color: #1a73e8;
+  opacity: 1;
+}
+
 .modal-details {
   display: flex;
   flex-direction: column;
