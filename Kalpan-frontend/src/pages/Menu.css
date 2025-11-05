@@ -246,9 +246,9 @@ input:focus {
   position: relative;
   background-color: #ffffff;
   border-radius: 16px;
-  width: 95%;
-  max-width: 1100px;
-  max-height: 85vh;
+  width: 96%;
+  max-width: 1200px; /* aumentado para acomodar dos columnas */
+  max-height: 90vh;
   overflow: hidden;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
 }
@@ -270,7 +270,8 @@ input:focus {
 
 .modal-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* imagen fija a la izquierda y detalles a la derecha */
+  grid-template-columns: 480px 1fr;
   gap: 2rem;
   padding: 2rem;
   align-items: start;
@@ -278,7 +279,7 @@ input:focus {
 
 .modal-image {
   width: 100%;
-  height: 420px;
+  height: 520px; /* más alto para aprovechar espacio en pantallas grandes */
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
@@ -346,12 +347,13 @@ input:focus {
 }
 
 .modal-details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 12px;
   padding: 0;
-  max-height: calc(85vh - 4rem);
-  overflow-y: auto;
+  max-height: calc(90vh - 6rem);
+  overflow-y: auto; /* seguirá permitiendo scroll si es necesario, pero más espacio evita que aparezca */
 }
 
 .modal-details .MuiTypography-body1 {
@@ -388,7 +390,13 @@ input:focus {
 }
 
 .detail-item {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+}
+
+/* Hacer que la descripción ocupe ambas columnas */
+.detail-item.detail-description {
+  grid-column: 1 / -1;
+  margin-bottom: 14px;
 }
 
 .detail-label {
@@ -459,6 +467,13 @@ input:focus {
     gap: 18px;
     padding: 20px;
   }
+}
+
+/* punto de quiebre: permitir 2 columnas en detalles solo en pantallas anchas */
+@media (max-width: 1100px) {
+  .modal-inner { grid-template-columns: 1fr; }
+  .modal-details { grid-template-columns: 1fr; }
+  .modal-image { height: 360px; }
 }
 
 @media (max-width: 480px) {

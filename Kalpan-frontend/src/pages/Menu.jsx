@@ -356,7 +356,7 @@ function Menu() {
                     {alojamientoSeleccionado.title}
                   </Typography>
 
-                  <div className="detail-item">
+                  <div className="detail-item detail-description">
                     <div className="detail-label">Descripción:</div>
                     <div className="detail-value">{alojamientoSeleccionado.desc || '—'}</div>
                   </div>
