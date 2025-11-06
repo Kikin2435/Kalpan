@@ -389,6 +389,11 @@ input:focus {
   margin-bottom: 12px !important;
 }
 
+/* Hacer que el título abarque ambas columnas */
+.modal-title {
+  grid-column: 1 / -1;
+}
+
 .detail-item {
   margin-bottom: 6px;
 }
@@ -397,6 +402,16 @@ input:focus {
 .detail-item.detail-description {
   grid-column: 1 / -1;
   margin-bottom: 14px;
+}
+
+/* Centrar los botones y hacer que ocupen ambas columnas */
+.modal-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
 }
 
 .detail-label {

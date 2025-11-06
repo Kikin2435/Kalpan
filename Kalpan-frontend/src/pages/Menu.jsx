@@ -411,7 +411,7 @@ function Menu() {
                     <div className="detail-value">{alojamientoSeleccionado.reglas || '—'}</div>
                   </div>
 
-                  <div style={{ display: 'flex', gap: '16px', marginTop: '18px' }}>
+                  <div className="modal-actions">
                     <Button
                       variant="contained"
                       sx={{
@@ -420,9 +420,8 @@ function Menu() {
                         borderRadius: '25px',
                         textTransform: 'none',
                         fontSize: '16px',
-                        padding: '10px 20px',
+                        padding: '10px 24px',
                         width: 'auto',
-                        flex: 1,
                       }}
                       onClick={() => alert('Funcionalidad de reservar aún no implementada')}
                     >
@@ -436,9 +435,8 @@ function Menu() {
                         borderRadius: '25px',
                         textTransform: 'none',
                         fontSize: '16px',
-                        padding: '10px 20px',
+                        padding: '10px 24px',
                         width: 'auto',
-                        flex: 1,
                       }}
                       onClick={handleEdit}
                     >
