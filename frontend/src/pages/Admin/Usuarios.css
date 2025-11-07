@@ -131,8 +131,11 @@
 }
 
 .usuarios-table thead {
-    background-color: #4a90e2;
-    color: #fff;
+    background-color: #E0CDB6;
+    /* mismo color que el banner */
+    color: #111;
+    /* texto oscuro para contraste */
+    font-weight: 600;
 }
 
 .usuarios-table th,
@@ -147,7 +150,7 @@
 }
 
 .usuarios-table tbody tr:hover {
-    background-color: #eaf2ff;
+    background-color: #f3ead6;
 }
 
 /* Estados */

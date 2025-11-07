@@ -1,22 +1,17 @@
-// src/components/AdminSidebar.jsx
-import React from "react";
-import "./AdminSidebar.css"; // aquí pones su estilo
+import React from 'react';
+import './AdminSideBar.css'; // asegúrate que el archivo en disco se llame exactamente AdminSideBar.css
 
-function AdminSidebar() {
+export default function AdminSidebar() {
     return (
-        <aside className="sidebar">
-            <div className="sidebar-logo">
-                <h2>KALPAN</h2>
-            </div>
-
-            <nav className="sidebar-menu">
-                <a href="/admin/dashboard">Dashboard</a>
-                <a href="/admin/usuarios">Usuarios</a>
-                <a href="/admin/visitas">Visitas</a>
-                <a href="/admin/config">Configuración</a>
+        <aside className="admin-sidebar">
+            <div className="sidebar-logo">Kalpan</div>
+            <nav className="sidebar-nav">
+                <ul>
+                    <li className="active">Usuarios</li>
+                    <li>Dashboard</li>
+                    <li>Publicar</li>
+                </ul>
             </nav>
         </aside>
     );
 }
-
-export default AdminSidebar;
