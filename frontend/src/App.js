@@ -5,6 +5,7 @@ import Menu from './pages/Menu';
 import PublicarAlojamiento from './pages/PublicarAlojamiento';
 import Editar from './pages/Editar';
 import Usuarios from './pages/Admin/Usuarios';
+import Alojamientos from './pages/Admin/Alojamientos';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin/usuarios" element={<Usuarios />} />
+        <Route path="/admin/alojamientos" element={<Alojamientos />} />
 
       </Routes>
     </Router>
