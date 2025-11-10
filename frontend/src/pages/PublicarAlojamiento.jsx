@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FileUploader from '../components/FileUploader.jsx';
 import styles from './PublicarAlojamiento.module.css';
 
 function PublicarAlojamiento() {
@@ -15,7 +16,7 @@ function PublicarAlojamiento() {
   const [servicios, setServicios] = useState([]);
   const [estacionamiento, setEstacionamiento] = useState('');
   const [reglas, setReglas] = useState('');
-  const [imagen, setImagen] = useState([]);
+  const [imagenes, setImagenes] = useState([]);
   const navigate = useNavigate();
   
   const handleAmenidadesChange = (e) => {
@@ -36,51 +37,54 @@ function PublicarAlojamiento() {
     }
   };
 
-  const handleMediaChange = (e) => {
-    setImagen([...e.target.files]);
-  };
+  // const handleFileChange = (e) => {
+  //   setImagenes([e.target.files[0]]);
+  // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const id_propietario = 1;
 
-    const id_propietario = 1; 
-  
-    const propiedad = {
-      titulo_anuncio,
-      descripcion,
-      precio,
-      ubicacion,
-      tipo,
-      no_habitacion,
-      no_banios,
-      superficie,
-      amenidades: amenidades.join(', '),
-      servicios: servicios.join(', '),
-      estacionamiento,
-      reglas,
-      id_propietario, 
-    };
-  
-    console.log('Enviando propiedad:', propiedad);
-  
-    try {
-      const response = await fetch('http://localhost:4000/crearAlojamiento', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(propiedad),
-      });
-  
-      if (!response.ok) throw new Error('Error al guardar en el servidor');
-  
-      const data = await response.json();
-      console.log('Propiedad publicada correctamente:', data);
-      navigate('/menu');
-    } catch (error) {
-      console.error('Error en la base de datos:', error);
+  const formData = new FormData();
+  formData.append("titulo_anuncio", titulo_anuncio);
+  formData.append("descripcion", descripcion);
+  formData.append("precio", precio);
+  formData.append("ubicacion", ubicacion);
+  formData.append("tipo", tipo);
+  formData.append("no_habitacion", no_habitacion);
+  formData.append("no_banios", no_banios);
+  formData.append("superficie", superficie);
+  formData.append("amenidades", amenidades.join(", "));
+  formData.append("servicios", servicios.join(", "));
+  formData.append("estacionamiento", estacionamiento);
+  formData.append("reglas", reglas);
+  formData.append("id_propietario", id_propietario);
+
+  imagenes.forEach((img) => formData.append("imagen", img));
+
+  // for (const pair of formData.entries()) {
+  //   console.log(pair[0], pair[1]);
+  // }
+
+  try {
+    const response = await fetch("http://localhost:4000/crear", {
+      method: "POST",
+      body: formData, 
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text || "Error al guardar en el servidor");
     }
-  };
+
+    const data = await response.json();
+    console.log("Propiedad publicada correctamente:", data);
+    navigate("/menu");
+  } catch (error) {
+    console.error("Error en la base de datos:", error);
+  }
+};
+
   
 
   const handleRegresar = () => {
@@ -363,24 +367,10 @@ function PublicarAlojamiento() {
             </div>
           </div>
 
-          {/* <div>
-            <label htmlFor="media">Imágenes y videos</label>
-            <div className={styles['input-container']}>
-              <input
-                type="file"
-                id="media"
-                multiple
-                accept="image/*,video/*"
-                onChange={handleMediaChange}
-                required
-              />
-            </div>
-            <div className={styles['file-names']}>
-              {imagen.map((file, index) => (
-                <p key={index}>{file.name}</p>
-              ))}
-            </div>
-          </div> */}
+          <div>
+            {/* <label htmlFor="media">Imágenes y videos</label> */}
+            <FileUploader  onChange={setImagenes}/>
+          </div>
 
           <div className={styles['button-container']}>
             <button type="submit" className={styles['btn-registrarse']}>

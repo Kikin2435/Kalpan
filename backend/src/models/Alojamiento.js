@@ -65,6 +65,9 @@ export const Alojamiento = sequelize.define('alojamiento', {
             model: Propietario, 
             key: 'id_propietario'
         }
+    },
+    imagen: {
+        type: DataTypes.STRING,
     }
 }, {
     timestamps: true

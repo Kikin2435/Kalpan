@@ -1,19 +1,65 @@
 import { Alojamiento } from "../models/Alojamiento.js";
 
+// ...existing code...
 export const crearAlojamiento = async (req, res) => {
   try {
-    const { titulo_anuncio, ubicacion, precio, tipo, no_habitacion, no_banios, superficie, descripcion, amenidades, servicios, estacionamiento, reglas } = req.body;
+    console.log('req.files =>', req.files); // debug: verificar qué llega
+    const {
+      titulo_anuncio,
+      ubicacion,
+      precio,
+      tipo,
+      no_habitacion,
+      no_banios,
+      superficie,
+      descripcion,
+      amenidades,
+      servicios,
+      estacionamiento,
+      reglas
+    } = req.body;
+
+    // Normalizar req.files cuando usamos upload.array | upload.fields
+    let filesArray = [];
+
+    if (Array.isArray(req.files)) {
+      filesArray = req.files;
+    } else if (req.files && typeof req.files === "object") {
+      // req.files puede ser { imagen: [..], imagenes: [..] }
+      Object.values(req.files).forEach(arr => {
+        if (Array.isArray(arr)) filesArray = filesArray.concat(arr);
+      });
+    }
+
+    const imagenes = filesArray.length ? filesArray.map(file => file.filename) : [];
 
     const newAlojamiento = await Alojamiento.create({
-      titulo_anuncio, ubicacion, precio, tipo, no_habitacion, no_banios, superficie, descripcion, amenidades, servicios, estacionamiento, reglas
+      titulo_anuncio,
+      ubicacion,
+      precio,
+      tipo,
+      no_habitacion,
+      no_banios,
+      superficie,
+      descripcion,
+      amenidades,
+      servicios,
+      estacionamiento,
+      reglas,
+      imagen: imagenes.join(','), // guarda nombres separados por coma
     });
 
-    console.log(newAlojamiento);
-    res.status(200).json({ message: "Alojamiento creado correctamente!!, ", newAlojamiento });
+    res.status(200).json({
+      message: 'Alojamiento creado correctamente',
+      alojamiento: newAlojamiento,
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error al crear alojamiento:', error);
+    res.status(500).json({ message: error.message });
   }
-}
+};
+// ...existing code...
+
 
 export const editarAlojamiento = async (req, res) => {
   try {

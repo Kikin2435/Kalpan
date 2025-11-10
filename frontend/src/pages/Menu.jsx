@@ -30,13 +30,43 @@ function Menu() {
 
   const [alojamientos, setAlojamientos] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:4000/alojamientos')
-      .then(res => res.json())
-      .then(data => {
-        const imagenes = [imagen1, imagen2, imagen3, imagen4, imagen5, imagen6, imagen7, imagen8];
+  // Frontend: reemplazar useEffect existente
+useEffect(() => {
+  const parseImagenField = (imgField) => {
+    if (!imgField) return [];
+    let arr = null;
 
-        const alojamientosConImagen = data.map((item, index) => ({
+    // Si viene como JSON (["a.jpg","b.jpg"]) intenta parsear
+    if (typeof imgField === 'string' && (/^\s*\[/.test(imgField) || /^\s*\{/.test(imgField))) {
+      try { arr = JSON.parse(imgField); } catch (e) { arr = null; }
+    }
+
+    // Si no es JSON, si es string separamos por comas
+    if (!arr) {
+      if (typeof imgField === 'string') arr = imgField.split(',');
+      else if (Array.isArray(imgField)) arr = imgField;
+      else arr = [];
+    }
+
+    return arr
+      .map(s => (s || '').toString().trim())
+      .filter(Boolean)
+      .map(fname => `http://localhost:4000/uploads/${encodeURIComponent(fname)}`);
+  };
+
+  fetch('http://localhost:4000/alojamientos')
+    .then(res => res.json())
+    .then(data => {
+      const imagenes = [imagen1, imagen2, imagen3, imagen4, imagen5, imagen6, imagen7, imagen8];
+
+      const alojamientosConImagen = data.map((item, index) => {
+        let imageUrls = parseImagenField(item.imagen);
+
+        if (imageUrls.length === 0) {
+          imageUrls = [imagenes[index % imagenes.length]];
+        }
+
+        return {
           id: item.id_alojamiento || index,
           title: item.titulo_anuncio || 'Propiedad sin título',
           desc: item.descripcion || '',
@@ -50,16 +80,17 @@ function Menu() {
           servicios: item.servicios || 'Sin servicios',
           estacionamiento: item.estacionamiento || 'Sin estacionamiento',
           reglas: item.reglas || '',
-          image: imagenes[index % imagenes.length] // por ahora, imagen local
-          // Si usas imágenes reales desde BD, usa item.imagen
-        }));
-
-        setAlojamientos(alojamientosConImagen);
-      })
-      .catch(err => {
-        console.error('❌ Error al obtener alojamientos del backend:', err);
+          images: imageUrls,            // array completo
+          image: imageUrls[0] || null,  // primera imagen — usado en CardMedia y modal
+        };
       });
-  }, []);
+
+      setAlojamientos(alojamientosConImagen);
+    })
+    .catch(err => {
+      console.error('❌ Error al obtener alojamientos del backend:', err);
+    });
+}, []);
 
   const handleSearch = () => {
     const filtered = alojamientos.filter(item => {
