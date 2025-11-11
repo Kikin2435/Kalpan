@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+# Kalpan - Plataforma de Alojamiento para Estudiantes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Proyecto dividido en frontend (React) y backend (Express + MySQL).
 
-## Available Scripts
+## Estructura del Proyecto
 
-In the project directory, you can run:
+```
+Kalpan-frontend/
+├── frontend/          # Aplicación React
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── ...
+├── backend/           # API Express
+│   ├── src/
+│   ├── package.json
+│   └── ...
+└── README.md          # Este archivo
+```
 
-### `npm start`
+## Requisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js (versión 16 o superior)
+- MySQL (servidor corriendo)
+- npm o yarn
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Instalación y Ejecución
 
-### `npm test`
+### Backend (API)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Navega a la carpeta backend:
+```powershell
+cd backend
+```
 
-### `npm run build`
+2. Instala las dependencias:
+```powershell
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Configura la base de datos en `backend/src/config/database.js` si es necesario
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Ejecuta el servidor:
+```powershell
+npm run dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+El backend estará disponible en: `http://localhost:4000`
 
-### `npm run eject`
+### Frontend (React)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Abre una **nueva terminal** y navega a la carpeta frontend:
+```powershell
+cd frontend
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Instala las dependencias:
+```powershell
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Ejecuta la aplicación:
+```powershell
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+El frontend estará disponible en: `http://localhost:3000`
 
-## Learn More
+## Características Principales
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Registro de Usuarios**: Estudiantes y Propietarios pueden registrarse seleccionando su rol
+- **Inicio de Sesión**: Autenticación de usuarios
+- **Publicar Alojamiento**: Los propietarios pueden publicar propiedades
+- **Buscar Alojamiento**: Los estudiantes pueden buscar y filtrar alojamientos
+- **Editar Alojamiento**: Modificar propiedades existentes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Tecnologías Utilizadas
 
-### Code Splitting
+### Frontend
+- React 19
+- React Router DOM
+- Material-UI (MUI)
+- React Icons
+- CSS Modules
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Backend
+- Express 5
+- Sequelize (ORM)
+- MySQL2
+- bcrypt (encriptación de contraseñas)
+- CORS
+- Nodemon (desarrollo)
 
-### Analyzing the Bundle Size
+## Scripts Disponibles
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Frontend
+- `npm start` - Inicia el servidor de desarrollo
+- `npm build` - Crea una build de producción
+- `npm test` - Ejecuta las pruebas
 
-### Making a Progressive Web App
+### Backend
+- `npm run dev` - Inicia el servidor con nodemon (auto-reload)
+- `npm test` - Ejecuta las pruebas con Jest
+- `npm run test:coverage` - Ejecuta las pruebas con reporte de cobertura
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Solución de Problemas
 
-### Advanced Configuration
+### Error de ejecución de scripts en PowerShell
+Si obtienes un error sobre políticas de ejecución, ejecuta:
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Puerto ya en uso
+Si el puerto 3000 o 4000 está en uso, puedes:
+1. Cerrar la aplicación que lo está usando
+2. O cambiar el puerto en la configuración
 
-### Deployment
+### Problemas de CORS
+Asegúrate de que el backend esté corriendo antes de iniciar el frontend. El frontend está configurado para hacer peticiones a `http://localhost:4000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contribuciones
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este proyecto es parte de un trabajo universitario para la asignatura de Programación Móvil.

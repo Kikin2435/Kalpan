@@ -1,0 +1,26 @@
+[
+  {
+    "id_propietario": 1,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "usuario": "juanp",
+    "email": "juan.perez@example.com",
+    "password": "$2b$10$SVGcw97cyFboHX3MomAGTumfXvFfeKHSqSqEmPIgw4nth/DliTyJu",
+    "telefono": "3001112222",
+    "fecha_registro": null,
+    "createdAt": "2025-11-02T21:16:46.000Z",
+    "updatedAt": "2025-11-02T21:16:46.000Z"
+  },
+  {
+    "id_propietario": 2,
+    "nombre": "Ana",
+    "apellido": "García",
+    "usuario": "anag",
+    "email": "ana.garcia@example.com",
+    "password": "$2b$10$SVGcw97cyFboHX3MomAGTumfXvFfeKHSqSqEmPIgw4nth/DliTyJu",
+    "telefono": "3003334444",
+    "fecha_registro": null,
+    "createdAt": "2025-11-02T21:16:46.000Z",
+    "updatedAt": "2025-11-02T21:16:46.000Z"
+  }
+]

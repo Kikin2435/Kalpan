@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1748150240262" clover="3.2.0">
+  <project timestamp="1748150240263" name="All files">
+    <metrics statements="64" coveredstatements="63" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="5" elements="76" coveredelements="74" complexity="0" loc="64" ncloc="64" packages="7" files="15" classes="15"/>
+    <package name="src">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="app.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\app.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controllers">
+      <metrics statements="37" coveredstatements="37" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
+      <file name="alojamiento.Controller.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\controllers\alojamiento.Controller.js">
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+      </file>
+      <file name="estudiante.Controller.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\controllers\estudiante.Controller.js">
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+      <file name="login.Controller.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\controllers\login.Controller.js">
+        <metrics statements="13" coveredstatements="13" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="10" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.database">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="database.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\database\database.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.middlewares">
+      <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="uploads.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\middlewares\uploads.js">
+        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.mock">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Alojamiento.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\mock\Alojamiento.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="2" type="stmt"/>
+      </file>
+      <file name="Estudiante.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\mock\Estudiante.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+      <file name="Propietario.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\mock\Propietario.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.models">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Alojamiento.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\models\Alojamiento.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+      </file>
+      <file name="Estudiante.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\models\Estudiante.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+      <file name="Propietario.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\models\Propietario.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.routes">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="alojamiento.Routes.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\routes\alojamiento.Routes.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+      </file>
+      <file name="estudiante.Routes.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\routes\estudiante.Routes.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+      </file>
+      <file name="login.Routes.js" path="C:\Users\eduar\OneDrive\Escritorio\Semestre 6\Ingenieria de Software\Kalpan\Kalpan\Backend\src\routes\login.Routes.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

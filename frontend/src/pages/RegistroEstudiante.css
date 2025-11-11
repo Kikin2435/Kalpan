@@ -1,0 +1,220 @@
+/* Asegura que toda la pantalla se use para centrar */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor para centrar la tarjeta - SOLO PARA REGISTRO */
+.centrar-pagina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+/* Tarjeta del formulario - SOLO PARA REGISTRO */
+.centrar-pagina .container {
+  padding: 1.5rem 2rem;
+  max-width: 800px;
+  width: 100%;
+  max-height: 95vh;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+/* Encabezado - SOLO PARA REGISTRO */
+.centrar-pagina h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+/* Formulario - SOLO PARA REGISTRO */
+.centrar-pagina form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor de dos columnas */
+.form-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-column > div {
+  margin-bottom: 0.8rem;
+}
+
+/* Ancho completo para el selector de rol */
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Inputs - SOLO PARA REGISTRO */
+.centrar-pagina form div {
+  margin-bottom: 0.6rem;
+}
+
+.centrar-pagina label {
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  display: block;
+  font-size: 0.9rem;
+}
+
+/* Contenedor de cada input y su icono - SOLO PARA REGISTRO */
+.centrar-pagina .input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.centrar-pagina .input-container input,
+.centrar-pagina .input-container select {
+  padding: 0.6rem;
+  border: none;
+  font-size: 0.9rem;
+  width: 100%;
+  background-color: white;
+}
+
+.role-select-container {
+  background-color: #e9ecef;
+  margin-bottom: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 2px solid #007bff;
+}
+
+.role-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.role-label {
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 0.8rem;
+}
+
+.centrar-pagina .input-container svg {
+  margin: 0.5rem;
+  color: black;
+  font-size: 0.9rem;
+}
+
+/* Botones - SOLO PARA REGISTRO */
+.centrar-pagina button {
+  padding: 0.7rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.centrar-pagina button:hover {
+  opacity: 0.9;
+}
+
+/* Contenedor de botones - SOLO PARA REGISTRO */
+.centrar-pagina .button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.centrar-pagina .btn-registrarse {
+  background-color: #007bff;
+  color: white;
+  flex: 1;
+}
+
+.centrar-pagina .btn-regresar {
+  background-color: #007bff;
+  color: white;
+  flex: 1;
+}
+
+.centrar-pagina .btn-registrarse:hover {
+  background-color: #0056b3;
+}
+
+.centrar-pagina .btn-regresar:hover {
+  background-color: #0056b3;
+}
+
+/* Enlaces - SOLO PARA REGISTRO */
+.centrar-pagina p {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.centrar-pagina a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.centrar-pagina a:hover {
+  text-decoration: underline;
+}
+
+/* Scroll suave para el contenedor - SOLO PARA REGISTRO */
+.centrar-pagina .container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.centrar-pagina .container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.centrar-pagina .container::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 10px;
+}
+
+.centrar-pagina .container::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .form-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .container {
+    max-width: 450px;
+    padding: 1.2rem 1.5rem;
+  }
+}
