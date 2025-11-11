@@ -19,6 +19,7 @@ function Editar() {
     const [servicios, setServicios] = useState([]);
     const [estacionamiento, setEstacionamiento] = useState('');
     const [reglas, setReglas] = useState('');
+    const [imagenes, setImagenes] = useState([]);
 
     useEffect(() => {
         if (alojamiento) {

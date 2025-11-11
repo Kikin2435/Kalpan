@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FileUploader from '../components/FileUploader.jsx';
 import styles from './PublicarAlojamiento.module.css';
@@ -61,10 +61,6 @@ const handleSubmit = async (e) => {
   formData.append("id_propietario", id_propietario);
 
   imagenes.forEach((img) => formData.append("imagen", img));
-
-  // for (const pair of formData.entries()) {
-  //   console.log(pair[0], pair[1]);
-  // }
 
   try {
     const response = await fetch("http://localhost:4000/crear", {

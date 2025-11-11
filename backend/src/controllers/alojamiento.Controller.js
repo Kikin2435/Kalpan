@@ -1,6 +1,5 @@
 import { Alojamiento } from "../models/Alojamiento.js";
 
-// ...existing code...
 export const crearAlojamiento = async (req, res) => {
   try {
     console.log('req.files =>', req.files); // debug: verificar qué llega
@@ -58,7 +57,6 @@ export const crearAlojamiento = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// ...existing code...
 
 
 export const editarAlojamiento = async (req, res) => {

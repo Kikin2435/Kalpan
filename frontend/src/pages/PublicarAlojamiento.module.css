@@ -181,3 +181,39 @@
   .btn-registrarse:hover, .btn-regresar:hover {
     background: #1557b0;
   }
+
+  .file-uploader-container {
+    margin-top: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+
+  .file-uploader-container label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  /* Estilos para la zona de drag & drop */
+  .file-uploader-container > div:first-child {
+    border: 2px dashed #bdbdbd !important;
+    border-radius: 8px !important;
+    padding: 2rem !important;
+    background: #ffffff !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .file-uploader-container > div:first-child:hover {
+    border-color: #1a73e8 !important;
+    background: #f0f4ff !important;
+  }
+
+  /* Estilos para el grid de previsualizaciones */
+  .file-uploader-container > div:nth-child(2) {
+    margin-top: 1rem;
+  }

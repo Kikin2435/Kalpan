@@ -1,75 +1,183 @@
-import React, { useState } from "react";
-// import styles from "./FileUploader.module.css"; // puedes quitar esto si no usas CSS modules
+import React, { useState, useEffect } from "react";
 
 const FileUploader = ({ onChange }) => {
     const [files, setFiles] = useState([]);
+    const [previews, setPreviews] = useState([]);
+
+    useEffect(() => {
+        return () => {
+            previews.forEach((preview) => {
+                if (preview) URL.revokeObjectURL(preview);
+            });
+        };
+    }, [previews]);
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
+        const newPreviews = selectedFiles.map((file) => URL.createObjectURL(file));
+        setPreviews(newPreviews);
         setFiles(selectedFiles);
-
-        if (onChange) onChange(selectedFiles); // pasa los archivos al padre si es necesario
+        if (onChange) onChange(selectedFiles);
     };
 
     const handleRemoveFile = (index) => {
         const updatedFiles = files.filter((_, i) => i !== index);
+        const updatedPreviews = previews.filter((_, i) => i !== index);
+        if (previews[index]) URL.revokeObjectURL(previews[index]);
         setFiles(updatedFiles);
+        setPreviews(updatedPreviews);
         if (onChange) onChange(updatedFiles);
     };
 
     return (
-        <div className="flex flex-col gap-3">
-            <label htmlFor="media" className="font-medium text-gray-800">
-                Imágenes y videos
-            </label>
-
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div
-                className="border-2 border-dashed border-gray-300 rounded-xl p-4 cursor-pointer hover:bg-gray-50"
+                style={{
+                    border: '2px dashed #bdbdbd',
+                    borderRadius: '8px',
+                    padding: '2rem',
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                    backgroundColor: '#ffffff',
+                    transition: 'all 0.3s ease',
+                }}
                 onClick={() => document.getElementById("media").click()}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#1a73e8';
+                    e.currentTarget.style.backgroundColor = '#f0f4ff';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#bdbdbd';
+                    e.currentTarget.style.backgroundColor = '#ffffff';
+                }}
             >
                 <input
                     type="file"
                     id="media"
                     multiple
                     accept="image/*,video/*"
-                    className="hidden"
+                    style={{ display: 'none' }}
                     onChange={handleFileChange}
                 />
-                <p className="text-gray-500 text-center">
-                    📁 Haz clic o arrastra archivos aquí
-                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                    <svg
+                        style={{ width: '24px', height: '24px', color: '#999' }}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 4v16m8-8H4"
+                        />
+                    </svg>
+                    <p style={{ fontSize: '0.875rem', color: '#666' }}>
+                        Arrastra imágenes o haz clic aquí
+                    </p>
+                </div>
             </div>
 
-            {/* Previsualización */}
+            {/* Vista previa más pequeña */}
             {files.length > 0 && (
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mt-3">
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(70px, 1fr))',
+                    gap: '0.75rem',
+                    marginTop: '0.5rem'
+                }}>
                     {files.map((file, index) => (
-                        <div key={index} className="relative group">
-                            {file.type.startsWith("image/") ? (
-                                <img
-                                    src={URL.createObjectURL(file)}
-                                    alt={file.name}
-                                    className="w-full h-32 object-cover rounded-lg border"
-                                />
-                            ) : (
-                                <video
-                                    src={URL.createObjectURL(file)}
-                                    className="w-full h-32 object-cover rounded-lg border"
-                                    controls
-                                />
-                            )}
+                        <div 
+                            key={index} 
+                            style={{
+                                position: 'relative',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center'
+                            }}
+                            className="group"
+                        >
+                            <div style={{
+                                width: '100%',
+                                height: '60px',
+                                borderRadius: '6px',
+                                border: '1px solid #e0e0e0',
+                                overflow: 'hidden',
+                                backgroundColor: '#f5f5f5',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                {file.type.startsWith("image/") ? (
+                                    <img
+                                        src={previews[index]}
+                                        alt={file.name}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                    />
+                                ) : (
+                                    <video
+                                        src={previews[index]}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        controls
+                                    />
+                                )}
+                            </div>
 
-                            {/* Botón para eliminar */}
+                            {/* Botón eliminar */}
                             <button
                                 type="button"
                                 onClick={() => handleRemoveFile(index)}
-                                className="absolute top-1 right-1 bg-black bg-opacity-60 text-white text-xs rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition"
+                                style={{
+                                    position: 'absolute',
+                                    top: '2px',
+                                    right: '2px',
+                                    backgroundColor: '#dc2626',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '20px',
+                                    height: '20px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '12px',
+                                    cursor: 'pointer',
+                                    opacity: 0,
+                                    transition: 'opacity 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.opacity = '1';
+                                    e.currentTarget.style.backgroundColor = '#b91c1c';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.opacity = '0';
+                                    e.currentTarget.style.backgroundColor = '#dc2626';
+                                }}
                             >
                                 ✕
                             </button>
 
-                            <p className="text-xs mt-1 text-gray-600 truncate text-center">
-                                {file.name}
+                            <p style={{
+                                fontSize: '0.7rem',
+                                marginTop: '0.25rem',
+                                color: '#666',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                                textAlign: 'center',
+                                paddingX: '2px'
+                            }}>
+                                {file.name.substring(0, 15)}
                             </p>
                         </div>
                     ))}
