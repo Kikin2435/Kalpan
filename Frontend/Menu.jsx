@@ -91,6 +91,7 @@ function Menu() {
   //     reglas: "No se permite fumar",
   //     image: imagen2,
   //   },
+  
   //   {
   //     id: 3,
   //     title: "Estudio moderno en Monterrey",
