@@ -1,0 +1,213 @@
+.alojamientos-container,
+.kp-nav,
+.kp-banner,
+.kp-submenu {
+    box-sizing: border-box;
+}
+
+/* NAV / banner (mismo estilo que Usuarios) */
+.kp-nav {
+    background: #E0CDB6;
+    display: flex;
+    height: 70px;
+    border-bottom: 3px solid #000;
+    font-size: 18px;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.kp-logo {
+    width: 160px;
+    height: 56px;
+    background-image: url('../Img/Logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left center;
+}
+
+/* spacer para mantener estructura sin elementos interactivos */
+.kp-nav-spacer {
+    flex: 1;
+}
+
+/* Banner area (sub-menu) */
+.kp-banner {
+    width: 100%;
+    display: flex;
+    background: #f5f7fa;
+    padding: 18px 20px;
+    justify-content: center;
+}
+
+.kp-submenu {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Search box: clean */
+.kp-searchbox {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #bdbdbd;
+    border-radius: 28px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.kp-searchbox .search-input {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.kp-searchbox .search-input:focus {
+    outline: none;
+}
+
+/* --- Contenedor principal de tabla --- */
+.alojamientos-container {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    padding: 20px;
+    max-width: 1100px;
+    margin: 22px auto 60px auto;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+.alojamientos-title {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    text-align: left;
+    color: #2c3e50;
+}
+
+/* Tabla */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 8px;
+}
+
+.alojamientos-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.alojamientos-table thead {
+    background-color: #E0CDB6;
+    /* mismo color que el banner */
+    color: #111;
+    font-weight: 600;
+}
+
+.alojamientos-table th,
+.alojamientos-table td {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+}
+
+.alojamientos-table tbody tr:nth-child(even) {
+    background-color: #fbf8f4;
+}
+
+.alojamientos-table tbody tr:hover {
+    background-color: #f3ead6;
+}
+
+/* Estados */
+.loading {
+    text-align: center;
+    font-size: 1.05rem;
+    color: #4a90e2;
+    padding: 20px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .kp-logo {
+        width: 120px;
+        height: 44px;
+    }
+
+    .alojamientos-container {
+        margin: 12px;
+        padding: 14px;
+    }
+
+    .kp-searchbox .search-input {
+        font-size: 0.95rem;
+    }
+
+    .alojamientos-table th,
+    .alojamientos-table td {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .kp-nav {
+        padding: 0 12px;
+        font-size: 16px;
+    }
+
+    .kp-submenu {
+        padding: 0 10px;
+    }
+
+    .kp-searchbox {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+    }
+}
+
+/* botones en la barra (derecha) - estilos mejorados, activo plano (sin relieve) */
+.kp-nav-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.kp-nav-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #111;
+    background: transparent;
+    font-weight: 600;
+    transition: background .12s ease, color .12s ease, border .12s ease;
+    border: 1px solid transparent;
+}
+
+/* hover sutil */
+.kp-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* activo: plano, sin sombra ni relieve (igual look que Usuarios) */
+.kp-nav-btn--active {
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #111;
+}
