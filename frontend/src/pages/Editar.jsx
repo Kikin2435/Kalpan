@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './PublicarAlojamiento.module.css';
+import Switch from '@mui/material/Switch';
 
 function Editar() {
     const location = useLocation();
@@ -19,7 +20,7 @@ function Editar() {
     const [servicios, setServicios] = useState([]);
     const [estacionamiento, setEstacionamiento] = useState('');
     const [reglas, setReglas] = useState('');
-    const [imagenes, setImagenes] = useState([]);
+    const [status, setStatus] = useState('');
 
     useEffect(() => {
         if (alojamiento) {
@@ -47,6 +48,7 @@ function Editar() {
             );
             setEstacionamiento(alojamiento.estacionamiento || '');
             setReglas(alojamiento.reglas || '');
+            setStatus(alojamiento.status || '');
         }
     }, [alojamiento]);
 
@@ -93,6 +95,7 @@ function Editar() {
             estacionamiento,
             reglas,
             id_propietario,
+            status
         };
 
         console.log("Propiedad editado: ", propiedad);
@@ -395,6 +398,19 @@ function Editar() {
                             />
                         </div>
                     </div>
+
+                    <div style={{ display: 'flex'}}>
+                        <label htmlFor="status">Disponibilidad</label>
+                        <div style={{display: 'inline-flex', justifyContent: 'right', alignItems: 'center'}}>
+                            <Switch
+                                id="status"
+                                checked={Boolean(status)}
+                                onChange={(e) => setStatus(e.target.checked)}
+                            />
+                            <span>{status ? 'Activo' : 'Inactivo'}</span>
+                        </div>
+                    </div>
+
                     <div className={styles['button-container']}>
                         <button type="submit" className={styles['btn-registrarse']}>
                             Publicar

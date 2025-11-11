@@ -8,27 +8,27 @@ import Usuarios from './pages/Admin/Usuarios';
 import Alojamientos from './pages/Admin/Alojamientos';
 
 function App() {
-  return (
-    <Router>
-      <Routes>
+        return (
+                <Router>
+                        <Routes>
 
-        {/* Estudiante y Propietario */}
-        <Route path="/" element={<Navigate to="/inicio-sesion" />} />
-        <Route path="/inicio-sesion" element={<InicioSesion />} />
-        <Route path="/registro" element={<RegistroEstudiante />} />
-        <Route path="/menu" element={<Menu />} />
+                                {/* Estudiante y Propietario */}
+                                <Route path="/" element={<Navigate to="/inicio-sesion" />} />
+                                <Route path="/inicio-sesion" element={<InicioSesion />} />
+                                <Route path="/registro" element={<RegistroEstudiante />} />
+                                <Route path="/menu" element={<Menu />} />
 
-        {/* Propietario */}
-        <Route path="/publicar-alojamiento" element={<PublicarAlojamiento />} />
-        <Route path="/editar" element={<Editar />} />
+                                {/* Propietario */}
+                                <Route path="/publicar-alojamiento" element={<PublicarAlojamiento />} />
+                                <Route path="/editar" element={<Editar />} />
 
-        {/* Admin */}
-        <Route path="/admin/usuarios" element={<Usuarios />} />
-        <Route path="/admin/alojamientos" element={<Alojamientos />} />
+                                {/* Admin */}
+                                <Route path="/admin/usuarios" element={<Usuarios />} />
+                                <Route path="/admin/alojamientos" element={<Alojamientos />} />
 
-      </Routes>
-    </Router>
-  );
+                        </Routes>
+                </Router>
+        );
 }
 
 export default App;

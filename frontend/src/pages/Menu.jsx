@@ -74,6 +74,7 @@ function Menu() {
             estacionamiento: item.estacionamiento || 'Sin estacionamiento',
             reglas: item.reglas || '',
             images: imageUrls,
+            status: item.status || true,
             image: imageUrls[0],
           };
         });
@@ -122,11 +123,17 @@ function Menu() {
         body: JSON.stringify({ id: id_seleccionado })
       });
 
+
       if (!response.ok) throw new Error("Error al eliminar en el servidor");
 
-      await response.json();
+      const data = await response.json();
+      console.log('Alojamiento eliminado correctamente: ', data);
+
+      setAlojamientoSeleccionado(null);
+
       setAlojamientos(prev => prev.filter(a => a.id !== id_seleccionado));
       setAlojamientoSeleccionado(null);
+
     } catch (error) {
       console.error("Error en la base de datos: ", error.message);
     }

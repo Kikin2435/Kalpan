@@ -64,7 +64,7 @@ export const editarAlojamiento = async (req, res) => {
     const { id } = req.body;
     const {
       titulo_anuncio, ubicacion, precio, tipo, no_habitacion, no_banios,
-      superficie, descripcion, amenidades, servicios, estacionamiento, reglas
+      superficie, descripcion, amenidades, servicios, estacionamiento, reglas, status
     } = req.body;
 
     const [updated] = await Alojamiento.update(
@@ -80,7 +80,8 @@ export const editarAlojamiento = async (req, res) => {
         amenidades: Array.isArray(amenidades) ? amenidades.join(', ') : amenidades,
         servicios: Array.isArray(servicios) ? servicios.join(', ') : servicios,
         estacionamiento,
-        reglas
+        reglas,
+        status
       },
       { where: { id_alojamiento: id } }
     );
