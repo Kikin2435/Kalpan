@@ -19,7 +19,8 @@ function Menu() {
   const [alojamientos, setAlojamientos] = useState([]);
 
   const navigate = useNavigate();
-
+  const placeholderDataUri = () =>
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360"><rect width="100%" height="100%" fill="%23f5f5f5"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23999" font-size="20">No imagen</text></svg>';
 
   useEffect(() => {
     const parseImagenField = (imgField) => {
@@ -39,7 +40,11 @@ function Menu() {
       return arr
         .map(s => (s || '').toString().trim())
         .filter(Boolean)
-        .map(fname => `http://localhost:4000/uploads/${encodeURIComponent(fname)}`);
+        .map(fname => {
+          // if it's already a full URL, return as-is
+          if (/^https?:\/\//i.test(fname)) return fname;
+          return `http://localhost:4000/uploads/${encodeURIComponent(fname)}`;
+        });
     };
 
     fetch('http://localhost:4000/alojamientos')
@@ -262,8 +267,9 @@ function Menu() {
                 <CardMedia
                   component="img"
                   height="180"
-                  image={item.image}
+                  image={item.image || placeholderDataUri()}
                   alt={item.title}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = placeholderDataUri(); }}
                   sx={{ objectFit: 'cover', borderTopLeftRadius: '12px', borderTopRightRadius: '12px' }}
                 />
                 <CardContent sx={{ flexGrow: 1, padding: '12px' }}>
@@ -298,10 +304,11 @@ function Menu() {
                 <div className="modal-image" style={{ position: 'relative' }}>
                   {/* Imagen principal de la galería (usa images[] si existe) */}
                   <img
-                    src={(alojamientoSeleccionado.images && alojamientoSeleccionado.images[modalImageIndex]) || alojamientoSeleccionado.image}
+                    src={(alojamientoSeleccionado.images && alojamientoSeleccionado.images[modalImageIndex]) || alojamientoSeleccionado.image || placeholderDataUri()}
                     alt={alojamientoSeleccionado.title}
                     className="gallery-main"
                     style={{ width: '100%', borderRadius: '8px' }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = placeholderDataUri(); }}
                     onClick={(e) => e.stopPropagation()}
                   />
 

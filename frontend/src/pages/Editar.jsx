@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './PublicarAlojamiento.module.css';
+import FileUploader from '../components/FileUploader.jsx';
 
 function Editar() {
     const location = useLocation();
     const alojamiento = location.state?.alojamiento;
     const navigate = useNavigate();
 
+    // form fields
     const [titulo_anuncio, setTitulo_anuncio] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState('');
@@ -19,106 +21,166 @@ function Editar() {
     const [servicios, setServicios] = useState([]);
     const [estacionamiento, setEstacionamiento] = useState('');
     const [reglas, setReglas] = useState('');
-    const [imagenes, setImagenes] = useState([]);
+
+    // images
+    // existingImages: array of { name, url }
+    const [existingImages, setExistingImages] = useState([]);
+    // newFiles: File[] selected in this edit session (populated by FileUploader)
+    const [newFiles, setNewFiles] = useState([]);
 
     useEffect(() => {
-        if (alojamiento) {
-            setTitulo_anuncio(alojamiento.title || '');
-            setDescripcion(alojamiento.desc || '');
-            setPrecio(alojamiento.price || '');
-            setUbicacion(alojamiento.ubicacion || '');
-            setTipo(alojamiento.tipo || '');
-            setNo_Habitacion(alojamiento.habitaciones || '');
-            setNo_Banios(alojamiento.banos || '');
-            setSuperficie(alojamiento.superficie || '');
-            setAmenidades(
-                Array.isArray(alojamiento.amenidades)
-                    ? alojamiento.amenidades
-                    : (alojamiento.amenidades
-                        ? alojamiento.amenidades.split(',').map(a => a.trim())
-                        : [])
-            );
+        if (!alojamiento) return;
 
+        // populate basic fields (attempt multiple property names)
+        setTitulo_anuncio(alojamiento.titulo_anuncio || alojamiento.title || alojamiento.titulo || '');
+        setDescripcion(alojamiento.descripcion || alojamiento.desc || alojamiento.descripcion_corta || '');
+        setPrecio(alojamiento.precio || alojamiento.price || '');
+        setUbicacion(alojamiento.ubicacion || alojamiento.location || '');
+        setTipo(alojamiento.tipo || '');
+        setNo_Habitacion(alojamiento.no_habitacion || alojamiento.habitaciones || alojamiento.rooms || '');
+        setNo_Banios(alojamiento.no_banios || alojamiento.banos || alojamiento.bathrooms || '');
+        setSuperficie(alojamiento.superficie || alojamiento.area || '');
 
-            setServicios(
-                Array.isArray(alojamiento.servicios)
-                    ? alojamiento.servicios
-                    : (alojamiento.servicios ? alojamiento.servicios.split(',').map(a => a.trim()) : [])
-            );
-            setEstacionamiento(alojamiento.estacionamiento || '');
-            setReglas(alojamiento.reglas || '');
+        setAmenidades(
+            Array.isArray(alojamiento.amenidades)
+                ? alojamiento.amenidades
+                : (alojamiento.amenidades ? String(alojamiento.amenidades).split(',').map(a => a.trim()) : [])
+        );
+
+        setServicios(
+            Array.isArray(alojamiento.servicios)
+                ? alojamiento.servicios
+                : (alojamiento.servicios ? String(alojamiento.servicios).split(',').map(a => a.trim()) : [])
+        );
+
+        setEstacionamiento(alojamiento.estacionamiento || '');
+        setReglas(alojamiento.reglas || '');
+
+        // Parse existing images. Accept multiple possible field names and formats.
+        const imgField = alojamiento.imagen || alojamiento.imagenes || alojamiento.images || alojamiento.imagenes_lista || '';
+        let imgList = [];
+        if (Array.isArray(imgField)) {
+            imgList = imgField;
+        } else if (typeof imgField === 'string' && imgField.trim() !== '') {
+            // can be comma separated or JSON
+            try {
+                const parsed = JSON.parse(imgField);
+                if (Array.isArray(parsed)) imgList = parsed;
+                else imgList = [String(parsed)];
+            } catch (err) {
+                // fallback split by comma
+                imgList = imgField.split(',').map(s => s.trim()).filter(Boolean);
+            }
         }
+
+        const mapped = imgList.map((name) => {
+            // some entries may already be full URLs; we want to store only the filename in 'name'
+            const raw = String(name).trim();
+            let filename = raw;
+            let url = raw;
+            if (raw.startsWith('http')) {
+                try {
+                    const parsed = new URL(raw);
+                    const parts = parsed.pathname.split('/').filter(Boolean);
+                    filename = parts.length ? decodeURIComponent(parts[parts.length - 1]) : raw;
+                    url = raw;
+                } catch (err) {
+                    // fallback
+                    filename = raw;
+                    url = raw;
+                }
+            } else {
+                url = `http://localhost:4000/uploads/${encodeURIComponent(raw)}`;
+            }
+            return { name: filename, url };
+        });
+
+        setExistingImages(mapped);
+
     }, [alojamiento]);
 
-    console.log(alojamiento);
-
+    if (!alojamiento) {
+        return (
+            <div className={styles['centrar-pagina']}>
+                <p>No hay alojamiento seleccionado para editar.</p>
+            </div>
+        );
+    }
 
     const handleAmenidadesChange = (e) => {
         const { value, checked } = e.target;
-        if (checked) {
-            setAmenidades([...amenidades, value]);
-        } else {
-            setAmenidades(amenidades.filter((item) => item !== value));
-        }
+        if (checked) setAmenidades(prev => [...prev, value]);
+        else setAmenidades(prev => prev.filter((item) => item !== value));
     };
 
     const handleServiciosChange = (e) => {
         const { value, checked } = e.target;
-        if (checked) {
-            setServicios([...servicios, value]);
-        } else {
-            setServicios(servicios.filter((item) => item !== value));
-        }
+        if (checked) setServicios(prev => [...prev, value]);
+        else setServicios(prev => prev.filter((item) => item !== value));
     };
 
+    // remove an existing image (mark for deletion)
+    const removeExistingImage = (index) => {
+        setExistingImages(prev => prev.filter((_, i) => i !== index));
+    };
+
+    // newFiles will be set via <FileUploader onChange={setNewFiles} />
+
+    const handleRegresar = () => navigate('/menu');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const id_propietario = 1;
-        const id = alojamiento.id;
+        const id = alojamiento.id || alojamiento.id_alojamiento || alojamiento.ID || null;
+        if (!id) {
+            alert('ID de alojamiento no disponible');
+            return;
+        }
 
-        const propiedad = {
-            id,
-            titulo_anuncio,
-            descripcion,
-            precio,
-            ubicacion,
-            tipo,
-            no_habitacion,
-            no_banios,
-            superficie,
-            amenidades: amenidades.join(', '),
-            servicios: servicios.join(', '),
-            estacionamiento,
-            reglas,
-            id_propietario,
-        };
+        // Build FormData: include normal fields, existingImages (names to keep), and new files
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('titulo_anuncio', titulo_anuncio);
+        formData.append('descripcion', descripcion);
+        formData.append('precio', precio);
+        formData.append('ubicacion', ubicacion);
+        formData.append('tipo', tipo);
+        formData.append('no_habitacion', no_habitacion);
+        formData.append('no_banios', no_banios);
+        formData.append('superficie', superficie);
+        formData.append('amenidades', amenidades.join(', '));
+        formData.append('servicios', servicios.join(', '));
+        formData.append('estacionamiento', estacionamiento);
+        formData.append('reglas', reglas);
 
-        console.log("Propiedad editado: ", propiedad);
+        // existing images names (keep)
+        const existingNames = existingImages.map(i => i.name);
+        formData.append('existingImages', JSON.stringify(existingNames));
+
+        // append new files under key 'imagen' (backend should accept multiple)
+        newFiles.forEach((file) => {
+            formData.append('imagen', file, file.name);
+        });
+
         try {
-            const response = await fetch('http://localhost:4000/editAlojamiento', {
+            const res = await fetch('http://localhost:4000/editAlojamiento', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(propiedad),
+                body: formData,
             });
 
-            if(!response.ok) throw new Error("Error al editar en el servidor");
+            if (!res.ok) {
+                const txt = await res.text();
+                throw new Error(txt || 'Error en el servidor');
+            }
 
-            const data = await response.json();
-            console.log('Propiedad editada correctamente: ', data);
+            const data = await res.json();
+            console.log('Editado:', data);
             navigate('/menu');
-        } catch (error) {
-            console.log('Error en la base de datos: ', error.message);
+        } catch (err) {
+            console.error('Fallo al editar alojamiento', err);
+            alert('Error al editar alojamiento: ' + (err.message || err));
         }
-    }
-
-    const handleRegresar = () => {
-        navigate('/menu');
-    }
-
+    };
 
     return (
         <div className={styles['centrar-pagina']}>
@@ -158,6 +220,9 @@ function Editar() {
                         </div>
                     </div>
 
+                    {/* Images preview / upload section */}
+                    {/* images section removed from here and moved down to match Publicar layout */}
+
                     <div>
                         <label htmlFor="precio">Precio de renta (mensual) </label>
                         <div className={styles['input-container']}>
@@ -181,7 +246,7 @@ function Editar() {
                                 type="text"
                                 id="ubicacion"
                                 value={ubicacion}
-                                minLength={20}
+                                minLength={5}
                                 maxLength={200}
                                 onChange={(e) => setUbicacion(e.target.value)}
                                 placeholder="Ejemplo: Calle 123, Colonia, Ciudad, Estado, País"
@@ -395,6 +460,97 @@ function Editar() {
                             />
                         </div>
                     </div>
+                    {/* Images uploader + previews (styled like PublicarAlojamiento) */}
+                    <div className={styles['file-uploader-container']}>
+                        <label>Imágenes existentes</label>
+                        {existingImages.length === 0 ? (
+                            <small>No hay imágenes guardadas.</small>
+                        ) : (
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(70px, 1fr))',
+                                gap: '0.75rem',
+                                marginTop: '0.5rem'
+                            }}>
+                                {existingImages.map((img, idx) => (
+                                    <div key={img.name + idx} style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }} className="group">
+                                        <div style={{
+                                            width: '100%',
+                                            height: '60px',
+                                            borderRadius: '6px',
+                                            border: '1px solid #e0e0e0',
+                                            overflow: 'hidden',
+                                            backgroundColor: '#f5f5f5',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}>
+                                            <img
+                                                src={img.url}
+                                                alt={img.name}
+                                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                onError={(e) => {
+                                                    // fallback to an inline SVG placeholder to avoid depending on a file
+                                                    e.currentTarget.onerror = null;
+                                                    e.currentTarget.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180"><rect width="100%" height="100%" fill="%23f5f5f5"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23999" font-size="14">No imagen</text></svg>';
+                                                }}
+                                            />
+                                        </div>
+
+                                        {/* delete button (hidden until hover) */}
+                                        <button
+                                            type="button"
+                                            onClick={() => removeExistingImage(idx)}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '2px',
+                                                right: '2px',
+                                                backgroundColor: '#dc2626',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '50%',
+                                                width: '20px',
+                                                height: '20px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                fontSize: '12px',
+                                                cursor: 'pointer',
+                                                opacity: 0,
+                                                transition: 'opacity 0.2s ease'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.opacity = '1';
+                                                e.currentTarget.style.backgroundColor = '#b91c1c';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.opacity = '0';
+                                                e.currentTarget.style.backgroundColor = '#dc2626';
+                                            }}
+                                        >
+                                            ✕
+                                        </button>
+
+                                        <p style={{
+                                            fontSize: '0.7rem',
+                                            marginTop: '0.25rem',
+                                            color: '#666',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            whiteSpace: 'nowrap',
+                                            width: '100%',
+                                            textAlign: 'center'
+                                        }}>{img.name.substring(0, 15)}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        <div style={{ marginTop: 8 }}>
+                            <FileUploader onChange={setNewFiles} />
+                        </div>
+                    </div>
+
                     <div className={styles['button-container']}>
                         <button type="submit" className={styles['btn-registrarse']}>
                             Publicar

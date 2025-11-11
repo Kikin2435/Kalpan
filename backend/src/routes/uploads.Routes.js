@@ -1,36 +1,10 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
-import { fileURLToPath } from 'url';
-import fs from 'fs';
 import { crearAlojamiento } from "../controllers/alojamiento.Controller.js";
+import { uploads } from "../middlewares/uploads.js";
 
 const router = express.Router();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const uploadsDir = path.join(__dirname, '..', 'uploads');
-
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadsDir),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
-});
-
-const upload = multer({
-    storage,
-    fileFilter: (req, file, cb) => {
-        const filetypes = /jpeg|jpg|png|gif/;
-        const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        if (mimetype && extname) return cb(null, true);
-        cb(new Error('Error: Solo se permiten archivos de imagen!'));
-    }
-});
-
-
-router.post("/crear", upload.any(), crearAlojamiento);
+// Utiliza el middleware de subidas compartidas para que todos los archivos se suban al mismo directorio.
+// (El middleware usa process.cwd()/uploads). Esto mantiene la coherencia entre los flujos de publicación y edición, y garantiza que los archivos se sirvan mediante la ruta estática.
+router.post("/crear", uploads.any(), crearAlojamiento);
 export default router;

@@ -19,7 +19,9 @@ app.use(cors({
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve uploaded files from the same uploads directory where multer stores them.
+// multer uses process.cwd() + '/uploads' in the uploads middleware, so use the same path here.
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 app.use(estudianterouter);
 app.use(alojamientorouter);
 app.use(login);
