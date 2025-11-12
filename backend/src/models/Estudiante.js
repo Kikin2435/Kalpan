@@ -19,6 +19,11 @@ export const Estudiante = sequelize.define('estudiante', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'estudiante'
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false

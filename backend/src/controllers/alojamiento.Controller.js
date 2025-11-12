@@ -2,7 +2,7 @@ import { Alojamiento } from "../models/Alojamiento.js";
 
 export const crearAlojamiento = async (req, res) => {
   try {
-    console.log('req.files =>', req.files); // debug: verificar qué llega
+    console.log('req.files =>', req.files);
     const {
       titulo_anuncio,
       ubicacion,
@@ -18,13 +18,11 @@ export const crearAlojamiento = async (req, res) => {
       reglas
     } = req.body;
 
-    // Normalizar req.files cuando usamos upload.array | upload.fields
     let filesArray = [];
 
     if (Array.isArray(req.files)) {
       filesArray = req.files;
     } else if (req.files && typeof req.files === "object") {
-      // req.files puede ser { imagen: [..], imagenes: [..] }
       Object.values(req.files).forEach(arr => {
         if (Array.isArray(arr)) filesArray = filesArray.concat(arr);
       });

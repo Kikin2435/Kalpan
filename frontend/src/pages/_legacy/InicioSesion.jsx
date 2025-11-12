@@ -12,10 +12,12 @@ function InicioSesion() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const usuario = {
       email,
       password
     };
+
     try {
       const response = await fetch('http://localhost:4000/login', {
         method: 'POST',
@@ -24,25 +26,20 @@ function InicioSesion() {
         },
         body: JSON.stringify(usuario)
       });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Error al iniciar sesión');
+
+      if (response.ok) {
+        navigate('/menu');
+      } else {
+        throw new Error('Error al iniciar sesión');
       }
-      
-      // Login exitoso: guardar datos del usuario si es necesario
-      console.log('Usuario autenticado:', data.user);
-      navigate('/menu');
-      
     } catch (error) {
-      console.error('Error en la base de datos:', error.message);
-      alert(error.message || 'Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+      console.error('Error en la base de datos:', error);
+      alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
     }
   };
 
   return (
-    <div className="inicio-sesion-page">
+    <div className="centrar-pagina">
       <div className="container">
         <h2>Iniciar Sesión</h2>
         <form onSubmit={handleSubmit}>

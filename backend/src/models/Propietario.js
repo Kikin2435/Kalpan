@@ -19,6 +19,11 @@ export const Propietario = sequelize.define('propietario', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'propietario'
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false
