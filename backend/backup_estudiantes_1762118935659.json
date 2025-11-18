@@ -1,0 +1,26 @@
+[
+  {
+    "id_estudiante": 1,
+    "nombre": "María",
+    "apellido": "Gómez",
+    "usuario": "mariag",
+    "email": "maria.gomez@example.com",
+    "password": "$2b$10$SVGcw97cyFboHX3MomAGTumfXvFfeKHSqSqEmPIgw4nth/DliTyJu",
+    "telefono": "3005556666",
+    "fecha_registro": null,
+    "createdAt": "2025-11-02T21:16:46.000Z",
+    "updatedAt": "2025-11-02T21:16:46.000Z"
+  },
+  {
+    "id_estudiante": 2,
+    "nombre": "Alejandro",
+    "apellido": "Lezama Torres",
+    "usuario": "Tadan",
+    "email": "alexote737@gmail.com",
+    "password": "password123",
+    "telefono": "4451671921",
+    "fecha_registro": null,
+    "createdAt": "2025-11-02T21:20:59.000Z",
+    "updatedAt": "2025-11-02T21:20:59.000Z"
+  }
+]

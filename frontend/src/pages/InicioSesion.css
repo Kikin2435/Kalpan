@@ -1,0 +1,113 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Contenedor principal que centra todo - SOLO INICIO SESION */
+.inicio-sesion-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+/* Formulario - SOLO INICIO SESION */
+.inicio-sesion-page .container {
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.inicio-sesion-page h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.inicio-sesion-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inicio-sesion-page form div {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.inicio-sesion-page label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+/* Contenedor de cada input y su icono - SOLO INICIO SESION */
+.inicio-sesion-page .input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.inicio-sesion-page .input-container input {
+  padding: 0.8rem;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.inicio-sesion-page .input-container svg {
+  margin: 0.8rem;
+  color: black;
+}
+
+/* Botones - SOLO INICIO SESION */
+.inicio-sesion-page button {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.inicio-sesion-page button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo de texto para el enlace - SOLO INICIO SESION */
+.inicio-sesion-page p {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.inicio-sesion-page a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.inicio-sesion-page a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos específicos para el botón de iniciar sesión */
+.inicio-sesion-page .btn-iniciar {
+  background-color: #007bff;
+}
+
+.inicio-sesion-page .btn-iniciar:hover {
+  background-color: #0056b3;
+}
