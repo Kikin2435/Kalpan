@@ -43,7 +43,14 @@ describe("Controlador Estudiante", () => {
 
       expect(res.statusCode).toBe(201);
       expect(res.body).toHaveProperty("estudiante");
-      expect(Estudiante.create).toHaveBeenCalledWith(estudianteBody);
+      // controller hashes password and adds role so assert on key properties instead of raw object equality
+      expect(Estudiante.create).toHaveBeenCalledWith(expect.objectContaining({
+        nombre: estudianteBody.nombre,
+        apellido: estudianteBody.apellido,
+        usuario: estudianteBody.usuario,
+        email: estudianteBody.email,
+        telefono: estudianteBody.telefono
+      }));
     });
 
     it("debe manejar errores si la creación falla (500)", async () => {

@@ -68,8 +68,9 @@ describe("Controlador Alojamiento", () => {
         .send(alojamientoBody);
 
       expect(res.statusCode).toBe(200);
-      expect(res.body).toHaveProperty("newAlojamiento");
-      expect(Alojamiento.create).toHaveBeenCalledWith(alojamientoBody);
+      // controller returns the created alojamiento under 'alojamiento'
+      expect(res.body).toHaveProperty('alojamiento');
+      expect(Alojamiento.create).toHaveBeenCalledWith(expect.objectContaining({ titulo_anuncio: alojamientoBody.titulo_anuncio }));
     });
 
     it("debe manejar errores si la creación falla (500)", async () => {
@@ -81,6 +82,34 @@ describe("Controlador Alojamiento", () => {
 
       expect(res.statusCode).toBe(500);
       expect(res.body).toHaveProperty("message");
+    });
+
+    it('debe retornar 400 cuando se intenta eliminar sin id', async () => {
+      const res = await request(app).delete('/delAlojamiento').send({});
+      expect(res.statusCode).toBe(400);
+      expect(res.body).toHaveProperty('message');
+    });
+
+    it('debe retornar 404 cuando no existe id a eliminar', async () => {
+      Alojamiento.destroy.mockResolvedValue(0);
+      const res = await request(app).delete('/delAlojamiento').send({ id: 999 });
+      expect(res.statusCode).toBe(404);
+      expect(res.body).toHaveProperty('message');
+    });
+
+    it('edicion retorna 404 cuando no se actualiza nada', async () => {
+      Alojamiento.update.mockResolvedValue([0]);
+      const res = await request(app).put('/editAlojamiento').send({ id: 888 });
+      expect(res.statusCode).toBe(404);
+      expect(res.body).toHaveProperty('message');
+    });
+
+    it('edicion retorna 200 cuando actualiza correctamente', async () => {
+      Alojamiento.update.mockResolvedValue([1]);
+      Alojamiento.findByPk.mockResolvedValue({ id_alojamiento: 10, titulo_anuncio: 'OK' });
+      const res = await request(app).put('/editAlojamiento').send({ id: 10, titulo_anuncio: 'OK' });
+      expect(res.statusCode).toBe(200);
+      expect(res.body).toHaveProperty('alojamientoActualizado');
     });
   });
 });

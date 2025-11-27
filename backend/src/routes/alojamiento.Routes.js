@@ -4,7 +4,7 @@ import { crearAlojamiento, delAlojamiento, editarAlojamiento, getAlojamientos } 
 
 const router = Router();
 
-// router.post('/crearAlojamiento', upload.single('imagen'), crearAlojamiento);
+router.post('/crearAlojamiento', crearAlojamiento);
 router.put('/editAlojamiento', editarAlojamiento);
 router.delete('/delAlojamiento', delAlojamiento);
 router.get('/alojamientos', getAlojamientos);

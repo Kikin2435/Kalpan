@@ -1,4 +1,4 @@
-import { Solicitud } from "../models/Solicitud.js ";
+import { Solicitud } from "../models/Solicitud.js";
 
 export const createSolicitud = async (req, res) => {
     try {

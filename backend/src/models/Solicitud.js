@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
+import { Propietario } from "./Propietario.js";
+import { Alojamiento } from "./Alojamiento.js";
 
 export const Solicitud = sequelize.define('solicitud', {
     id_solicitud: {
@@ -11,7 +13,7 @@ export const Solicitud = sequelize.define('solicitud', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Propietario, 
+            model: Propietario,
             key: 'id_propietario'
         }
     },
@@ -19,7 +21,7 @@ export const Solicitud = sequelize.define('solicitud', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Alojamiento, 
+            model: Alojamiento,
             key: 'id_alojamiento'
         }
     },

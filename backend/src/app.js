@@ -8,6 +8,7 @@ import login from './routes/login.Routes.js';
 import propietariorouter from './routes/propietario.Routes.js';
 import registerRouter from './routes/register.Routes.js';
 import router from './routes/uploads.Routes.js';
+import solicitudRouter from './routes/solicitud.Routes.js';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(alojamientorouter);
 app.use(login);
 app.use(propietariorouter);
 app.use(registerRouter);
+app.use(solicitudRouter);
 app.use(router);
 
 export default app;
